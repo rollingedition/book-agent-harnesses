@@ -1,0 +1,20 @@
+# Chapter when-an-agent-is-the-wrong-design's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.fixed-pipeline-same-task]
+say = "This example runs the fixed pipelines for T-02, T-04 and T-05, with no model, and sets each run beside the recorded agent's run on the same task. Each pipeline line gives its actions and its model calls, which are none, and each agent line gives its model calls. It then replays the agent's T-02 run and counts how many of its edits failed, and it ends by stopping a pipeline at a line the file does not contain."
+
+[examples.decision-table]
+say = "This example prints the decision table for all twenty tasks: each task's readings, which are the author's judgement, the design those readings give, and how the task's recorded run ended. Below the table it prints the counts the chapter quotes. It calls no model."
+
+[terms]
+"T-08" = "T zero eight"
+"arXiv:2604.02460" = "archive, two six zero four, dot zero two four six zero"
+"arXiv:2512.08296" = "archive, two five one two, dot zero eight two nine six"
+"arXiv:2503.13657" = "archive, two five zero three, dot one three six five seven"
+"arXiv:2406.12045" = "archive, two four zero six, dot one two zero four five"
+"gpt-4o" = "G P T four oh"
+
+[words]

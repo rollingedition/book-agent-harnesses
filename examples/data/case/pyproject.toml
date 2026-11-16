@@ -1,0 +1,12 @@
+# Licensed under the MIT licence.
+[project]
+name = "unitcraft"
+version = "0.1.0"
+description = "Parse, convert and format physical quantities written as text."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

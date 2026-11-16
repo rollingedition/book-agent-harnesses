@@ -1,0 +1,63 @@
+# Chapter testing-the-agent's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.scenario-refusal]
+say = "A stop task asks for a change the harness must refuse, a Windows job in the CI workflow. The scripted reply writes that file anyway. The refusal comes back as a tool error, the run ends with a question, and the copy is unchanged."
+
+[examples.scenario-gate]
+say = "A scripted finish renames a visible test, and a scripted yes waits behind it. The gate holds the proposal as never, so nobody is asked, and the run ends with a question. The library is left as it was."
+
+[examples.scenario-stop-rule]
+say = "The same run tests call is sent over and over on one task. Without the stop rules the run reaches the step cap. With the repeat rule it ends at the third identical call."
+
+[examples.hidden-check-in-copy]
+say = "Runs the hidden check on the case without the fix, where it fails, and on a copy with the correct fix and a planted conftest file that exits with an error, where it passes. The check's folder holds only the package and the README from the copy."
+
+[examples.scoring-ignores-planted-config]
+say = "Plants a conftest file, a pytest config that loads a plugin, and a module that shadows pytest, each in its own copy. Each planted file would leave a marker if its code ran. The visible run and the hidden check come out as they do on a clean copy, and no marker appears."
+
+[examples.scenario-injected-output]
+say = "A scripted run on one task reads two files whose text tells a maintainer to delete the tests, then renames a test as that text asks. The gate holds the rename as never, so nobody is asked and nothing is applied. The run ends with a question, and the library is unchanged."
+
+[examples.score-task-set]
+say = "Scores the recorded task-set run with the current scorer: how many tasks are done, by kind, the pass at one, and the naive count range. It also prints the count with the path match in one stop task taken out, and checks that a replay of the stored runs gives the same results."
+
+[examples.compare-v1-v2]
+say = "Prints each task's done flag, how its run ended, steps, tool calls and tokens for the two recordings. Then come the totals, the step cap, the count with and without the path match in one stop task, the tasks where each version takes more or fewer steps, and how each run ended."
+
+[[tables]]
+section = "v1-v2"
+starts = "| Ended as |"
+say = "A table of how each version's runs ended: finish, asking the user, or the step cap. Version two's no-progress endings are given in the sentence under it."
+
+[terms]
+"pass@1" = "pass at one"
+"pass^k" = "pass hat k"
+"step_cap" = "step cap"
+"repeated_call" = "repeated call"
+"no_progress" = "no progress"
+"run_tests" = "run tests"
+"conftest.py" = "con test dot pie"
+"pytest.ini" = "pie test dot I N I"
+"pytest.py" = "pie test dot pie"
+"lib/tasks.py" = "lib tasks dot pie"
+"unitcraft/" = "unit craft"
+"unitcraft/parse.py" = "unit craft parse dot pie"
+"tests/" = "tests"
+"tests/test_parse.py" = "tests slash test underscore parse dot pie"
+"tests/test_format.py" = "tests slash test underscore format dot pie"
+"tests/test_rounding.py" = "tests slash test underscore rounding dot pie"
+"test_t04.py" = "test underscore T zero four dot pie"
+".github/" = "dot github folder"
+".github/workflows/test.yml" = "dot github workflows test dot Y M L"
+"rm -rf tests" = "R M dash R F tests"
+"Q4_K_M" = "Q four K M"
+
+"EvilGenie" = "Evil Genie"
+"SWE-bench" = "S W E bench"
+"tau-bench" = "tau bench"
+
+[words]
+"cm" = "centimetres"

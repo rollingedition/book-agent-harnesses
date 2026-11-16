@@ -1,0 +1,26 @@
+{
+ "script": "recordings/openai_compatible.py",
+ "model": "unsloth/Qwen3-4B-Instruct-2507-GGUF",
+ "model_version": "a06e946bb6b655725eafa393f4a9745d460374c9",
+ "prompt_sha256": "26bf81dcebf8292bbb800952751d36484c60c12e1d2be42e46c25ae6a875b742",
+ "tool_set": "ch1",
+ "task": "T-01",
+ "endpoint": "/v1/chat/completions",
+ "requests": 2,
+ "server": "llama-cpp-python 0.3.36, python -m llama_cpp.server",
+ "file": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+ "file_sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+ "quantization": "Q4_K_M",
+ "threads": 4,
+ "n_ctx": 8192,
+ "max_tokens": 1024,
+ "sampling": {
+  "temperature": 0,
+  "top_k": 1,
+  "seed": 4217
+ },
+ "created": "2026-11-15",
+ "outputs": [
+  "exchanges.jsonl"
+ ]
+}

@@ -1,0 +1,1 @@
+{"check": "test_t01.py", "check_sha256": "d9777755c1bb305de553cbaebcb37bd7fe089ba8f269955f3589b9bb1758f7c6", "completion_tokens": 2128, "done": false, "ended": "step_cap", "kind": "fix", "prompt_tokens": 13009, "steps": 8, "task": "T-01", "tool_calls": 8}

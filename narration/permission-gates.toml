@@ -1,0 +1,70 @@
+# Chapter permission-gates's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.gate-applies-only-on-yes]
+say = "The recorded T-04 run is replayed with a person who answers yes. The gate shows that person the whole diff of the copy, and on a yes it applies the change to the library. The run ends as {{out:gate-applies-only-on-yes:ended}}, and the visible suite reports {{out:gate-applies-only-on-yes:visible tests after the apply}} once the change is in. That count does not score the task. The second part tries two yeses that cannot apply. In one, the copy changes after the person looks, and the handoff reads {{out:gate-applies-only-on-yes:drifted copy, handoff}}."
+
+[examples.finish-body-waits-for-yes]
+say = "The run has a finish that publishes. It is replayed twice with the same proposal, once with a no and once with a yes. On a no the publish step does not run and no file is added. On a yes the file is added and the publish step runs once, and the example asserts both endings."
+
+[examples.refusal-handed-back]
+say = "The same replay runs with a person who answers no and gives a reason. The refusal becomes the result of the last step, and the run ends as {{out:refusal-handed-back:ended}}. The handoff's question carries the reason in full: {{out:refusal-handed-back:handoff question}}. The example also asserts that the library is unchanged afterwards."
+
+[examples.approval-in-transcript]
+say = "Two runs share one gate. The T-04 run is answered yes, and a stored T-09 run is answered no. The line for the first run ends in the yes and the apply. The line for the second reads {{out:approval-in-transcript:transcript, T-09}}. Only the first change reaches the library, and the gate's log pairs each answer with its proposal's ID and the start of its hash."
+
+[examples.hidden-diff-lines-shown]
+say = "Two files are written into the copy. One has a carriage return that would overwrite the line before it in a terminal, and the other has an escape sequence that would erase a line. The person is shown the diff with those characters written out. The example prints {{out:hidden-diff-lines-shown:headers that flag control characters}} header lines that flag control characters, and {{out:hidden-diff-lines-shown:raw CR or ESC in the shown text}} raw carriage returns or escapes in the shown text. The person says no, so nothing is applied."
+
+[examples.answer-binds-bytes]
+say = "A file whose bytes are not valid UTF-8 text is added to the copy, and the person is shown a line that says so, with the hash of its bytes. The person says yes, and then the copy's bytes change to a different byte that decodes to the same replacement character. The apply is refused, and the handoff reads {{out:answer-binds-bytes:handoff}}. The example also checks that the two byte strings have different hashes."
+
+[examples.never-class-refused]
+say = "The agent makes two edits to its copy, a rename of a public function and an edit to a test file that removes a test, and then finishes with a summary that says no approval is needed. The gate reads the diff and refuses both changes outright, without asking anyone. The run ends as {{out:never-class-refused:ended}}, and the reasons read {{out:never-class-refused:reasons}}."
+
+[examples.gutted-test-refused]
+say = "The agent edits one assertion in an existing test, so that the test asserts true. The gate refuses that edit without asking anyone, and the reason reads {{out:gutted-test-refused:reasons}}. The example also checks that the same check finds no reason to refuse a new test module."
+
+[examples.library-guard-fails-closed]
+say = "The agent writes a test module into its copy. When the test run imports it, the module writes a marker into the library, and then the agent runs the tests. The guard sees the library change around that run and ends it as {{out:library-guard-fails-closed:run_tests ended}}. The handoff names the file: {{out:library-guard-fails-closed:handoff}}. No proposal was made, and nothing was restored."
+
+[examples.apply-all-or-nothing]
+say = "A proposal has two files, and a folder stands where the second file must go, so the second write fails. The gate puts back the first file and the folder it had made, and the handoff reads {{out:apply-all-or-nothing:handoff}}. The example asserts that the README and the library's bytes are as they were before the finish."
+
+[examples.unknown-tool-refused]
+say = "A tool that the harness's table does not list is added to the set and called. Its description says it only reads. The gate classes it as never and refuses the call before its body runs, and returns the refusal as text. The class is {{out:unknown-tool-refused:class}}, the result is {{out:unknown-tool-refused:result}}, and the body ran {{out:unknown-tool-refused:body ran}} times."
+
+[examples.gate-over-task-set]
+say = "Every recorded task-set run is replayed through a gate that counts but does not enforce. The example checks that each run ends as it did in the recording, and then prints the counts. Across all the runs, the gate counted {{out:gate-over-task-set:never-class calls, all runs}} call to the dot github folder, held {{out:gate-over-task-set:held as never, all runs}} changes as never, and would have asked a person about {{out:gate-over-task-set:proposals that would wait for a yes, all runs}} proposals."
+
+[terms]
+"NUL" = "nul"
+"dontAsk" = "dont-ask"
+"OWASP" = "oh wasp"
+"UnicodeEncodeError" = "unicode encode error"
+"parse_quantity" = "parse quantity"
+"test_parses_negative_value" = "test parses negative value"
+".github/" = "dot github folder"
+".." = "dot dot"
+"CR" = "carriage return"
+"ESC" = "escape"
+"T-04" = "T zero four"
+"T-09" = "T zero nine"
+"T-16 to T-19" = "T sixteen to T nineteen"
+"T-16" = "T sixteen"
+"T-18" = "T eighteen"
+"T-19" = "T nineteen"
+"p-1" = "p one"
+"p-2" = "p two"
+"test_*.py" = "test underscore star dot p y"
+"IsADirectoryError" = "is a directory error"
+"OSError" = "O S error"
+"ToolError" = "tool error"
+"tests/test_parse.py" = "tests slash test underscore parse dot pie"
+"unitcraft/marker.py" = "unit craft slash marker dot p y"
+"library_changed" = "library changed"
+"reset_library" = "reset library"
+
+[words]

@@ -1,0 +1,47 @@
+# Chapter stop-rules's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.budget-stops-a-loop]
+say = "The code replays chapter one's recorded run of task T-01 with a budget of {{out:budget-stops-a-loop:budget (steps)}} steps and no other rule. It prints the budget, the steps and the tool calls, how the run ended, and the last step. The run ends as {{out:budget-stops-a-loop:ended}} after {{out:budget-stops-a-loop:steps}} steps, with {{out:budget-stops-a-loop:tool calls}} tool calls. Its last step is a malformed call, which the harness refused."
+
+[examples.repeated-call-stops]
+say = "The code replays task T-02 twice: first with no rules, then with the repeated-call rule at three identical calls in a row. It prints where each run ends, the repeated call, the step where the streak began, the length of the streak, and the last two steps. Without the rule the run ends as {{out:repeated-call-stops:without the rule, ended}}. With it, the run ends as {{out:repeated-call-stops:with the rule, ended}}. The repeated call is edit file. The streak begins at {{out:repeated-call-stops:first of the identical calls}}, and runs {{out:repeated-call-stops:identical calls in a row}} calls long."
+
+[examples.no-progress-stops]
+say = "The code replays task T-01 twice: first with no rules, then with the no-progress rule at two edits in a row. It prints where each run ends, the steps of the two edits that left the counts unchanged, the test counts after the last edit, and the last two steps. Without the rule the run ends as {{out:no-progress-stops:without the rule, ended}}. With it, the run ends as {{out:no-progress-stops:with the rule, ended}}. The stopping edits are at {{out:no-progress-stops:edits that left the counts unchanged, steps}}, and the counts stay at {{out:no-progress-stops:counts after the last edit}}."
+
+[examples.stop-rules-over-task-set]
+say = "The code runs all twenty tasks of the task set from its recording, twice: once as recorded, and once with both stop rules. It prints counts only. The task set's step budget is {{out:stop-rules-over-task-set:task set step cap}} steps. The set has {{out:stop-rules-over-task-set:runs}} runs. Without the rules, the budget ends {{out:stop-rules-over-task-set:step cap without the rules}} of them, on {{out:stop-rules-over-task-set:step cap without the rules, tasks}}. With the rules on, {{out:stop-rules-over-task-set:step cap with the rules}} run still reaches the budget, and {{out:stop-rules-over-task-set:ended early with the rules}} of the others end earlier. Of the runs with the rules, {{out:stop-rules-over-task-set:no_progress}} end as no progress and {{out:stop-rules-over-task-set:finish}} end with finish. Of the {{out:stop-rules-over-task-set:done with the rules}} done runs, {{out:stop-rules-over-task-set:done with the rules, by finish}} end with finish and pass their check, and {{out:stop-rules-over-task-set:done with the rules, by ask_user}} end with a correct ask user. The done runs are the same tasks as without the rules."
+
+[[tables]]
+section = "ways-to-end"
+starts = "| `ended` |"
+say = "A table of the six values the harness writes when a run ends. For each one it gives what sets it, and which example or task-set count shows it. Two are the model's choice, finish and ask user. Three are limits the harness sets: the step budget, the repeated call and no progress. The sixth, no tool call, is set by a model that gives no call twice in a row, and no example here reaches it."
+
+[terms]
+"T-01" = "T zero one"
+"T-02" = "T zero two"
+"T-04" = "T zero four"
+"T-05" = "T zero five"
+"T-06" = "T zero six"
+"T-09" = "T zero nine"
+"T-10" = "T ten"
+"T-11" = "T eleven"
+"T-13" = "T thirteen"
+"T-14" = "T fourteen"
+"T-16" = "T sixteen"
+"T-18" = "T eighteen"
+"ReAct" = "ree act"
+"ICLR" = "I C L R"
+"step_cap" = "step cap"
+"repeated_call" = "repeated call"
+"no_progress" = "no progress"
+"no_tool_call" = "no tool call"
+"ask_user" = "ask user"
+"edit_file" = "edit file"
+"sort_keys" = "sort keys"
+"json.dumps" = "JSON dumps"
+
+[words]

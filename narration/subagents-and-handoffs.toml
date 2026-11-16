@@ -1,0 +1,62 @@
+# Chapter subagents-and-handoffs's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.child-with-budget]
+say = "A child loop gets {{out:child-with-budget:child budget, steps}} steps and runs task T zero one on the recorded steps. The output lists the child's budget and its steps, which are {{out:child-with-budget:child steps}} of {{out:child-with-budget:child budget, steps}}. The child ends as {{out:child-with-budget:child result}}, with no finish. Its tools are {{out:child-with-budget:child tools}}. The last lines list its steps in order: a listing, a read, a failed edit, and a second read."
+
+[examples.parent-starts-child]
+say = "A parent loop starts the child on task T zero two through a tool, reads the child's handoff, and asks the person the child's question. The child has a budget of {{out:parent-starts-child:child budget, steps}} steps and takes {{out:parent-starts-child:child steps}}; the parent takes {{out:parent-starts-child:parent steps}}, one to start the child and one to ask. The child ends as {{out:parent-starts-child:child result}}. The output then shows the parent's tools, whether the question it asked is the child's, and the sizes of the child's transcript, the handoff and the parent's context."
+
+[examples.summary-to-parent]
+say = "Task T zero two runs as a child under both stop rules, with the task set's step cap. The child ends as {{out:summary-to-parent:child result}}. Its transcript holds {{out:summary-to-parent:transcript messages}} messages and {{out:summary-to-parent:child transcript, characters}} characters, which the example estimates at {{out:summary-to-parent:child transcript, estimated tokens}} tokens. The parent receives a handoff of {{out:summary-to-parent:parent receives, characters}} characters, about {{out:summary-to-parent:parent receives, estimated tokens}} tokens. The handoff's lines follow. Its files changed line reads {{out:summary-to-parent:files changed}}, and its edits failed line reads {{out:summary-to-parent:edits failed}}. The stop reason and the question come last."
+
+[examples.handoff-on-stuck]
+say = "Every task-set run is replayed as a child under both stop rules, and each child that ends stuck goes to a parent that asks the person its question. The output counts how the children ended, and then what the parents did. Of {{out:handoff-on-stuck:child runs}} runs, {{out:handoff-on-stuck:handed back to a parent}} are handed back, and none of them is done. The parents ask the person {{out:handoff-on-stuck:parent asked the person, with the handoff's question}} questions. The other {{out:handoff-on-stuck:ended with finish or ask_user}} ended with a finish or a question of their own. The children's transcripts hold {{out:handoff-on-stuck:child transcripts, characters}} characters, and the parents read {{out:handoff-on-stuck:handoffs the parents read, characters}} characters of handoff."
+
+[[blocks]]
+section = "brief"
+starts = "Objective: find out why"
+say = "A brief for the T zero two child, written as four labelled lines: the objective, the output format, the tools and sources, and the boundaries. The boundaries say that no test and no other file may change, and that a public name is not renamed; the child asks the person instead."
+
+[terms]
+"T-01" = "T zero one"
+"T-02" = "T zero two"
+"v1" = "v one"
+"no_progress" = "no progress"
+"step_cap" = "step cap"
+"repeated_call" = "repeated call"
+"ask_user" = "ask user"
+"maxTurns" = "max turns"
+"transfer_to_refund_agent" = "transfer to refund agent"
+"Agent.as_tool" = "Agent dot as tool"
+"as_tool" = "as tool"
+"list_files" = "list files"
+"read_file" = "read file"
+"edit_file" = "edit file"
+"run_tests" = "run tests"
+"write_file" = "write file"
+"finish" = "finish"
+"start_child" = "start child"
+"v2.1.246" = "version two point one point two four six"
+"BrowseComp" = "Browse Comp"
+"no_tool_call" = "no tool call"
+"T-03" = "T zero three"
+"T-06" = "T zero six"
+"T-10" = "T ten"
+"T-11" = "T eleven"
+"T-12" = "T twelve"
+"T-13" = "T thirteen"
+"T-15" = "T fifteen"
+"T-16" = "T sixteen"
+"T-17" = "T seventeen"
+"T-19" = "T nineteen"
+"T-20" = "T twenty"
+"run_pytest" = "run pytest"
+"run_sandboxed" = "run sandboxed"
+"lib/tools.py" = "lib tools dot py"
+"lib/sandbox.py" = "lib sandbox dot py"
+
+[words]
+"unitcraft" = "unit craft"

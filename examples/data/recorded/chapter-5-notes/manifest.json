@@ -1,0 +1,88 @@
+{
+ "script": "recordings/chapter_5.py",
+ "model": "unsloth/Qwen3-4B-Instruct-2507-GGUF",
+ "model_version": "a06e946bb6b655725eafa393f4a9745d460374c9",
+ "prompt_sha256": "45868731cdf109a14134dab50054447d0e24bfbc2112bad633b02cdcadb1067c",
+ "tool_set": "v2+notes",
+ "step_cap": 16,
+ "stops": {
+  "repeat_limit": 3,
+  "no_progress_limit": 2
+ },
+ "context": {
+  "window": 8192,
+  "reply": 1024,
+  "prompt_budget": 7168,
+  "chars_per_token": 3,
+  "compaction": "local, deterministic"
+ },
+ "tasks_run": [
+  "T-01",
+  "T-02",
+  "T-06"
+ ],
+ "file": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+ "file_sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+ "quantization": "Q4_K_M",
+ "threads": 4,
+ "n_ctx": 8192,
+ "max_tokens": 1024,
+ "sampling": {
+  "temperature": 0,
+  "top_k": 1,
+  "seed": 4217
+ },
+ "tasks": [
+  {
+   "task": "T-01",
+   "kind": "fix",
+   "ended": "ask_user",
+   "done": false,
+   "steps": 5,
+   "tool_calls": 5,
+   "prompt_tokens": 8314,
+   "completion_tokens": 633,
+   "check": "test_t01.py",
+   "check_sha256": "d9777755c1bb305de553cbaebcb37bd7fe089ba8f269955f3589b9bb1758f7c6",
+   "compactions": 0,
+   "over_budget": 0,
+   "notes": 0
+  },
+  {
+   "task": "T-02",
+   "kind": "fix",
+   "ended": "finish",
+   "done": false,
+   "steps": 5,
+   "tool_calls": 5,
+   "prompt_tokens": 8555,
+   "completion_tokens": 695,
+   "check": "test_t02.py",
+   "check_sha256": "00200d1d24540c12dceb8fa8ef736379918da5fa906dc7f15d3b04f5bac9ab3c",
+   "compactions": 0,
+   "over_budget": 0,
+   "notes": 0
+  },
+  {
+   "task": "T-06",
+   "kind": "implement",
+   "ended": "no_progress",
+   "done": false,
+   "steps": 8,
+   "tool_calls": 8,
+   "prompt_tokens": 17061,
+   "completion_tokens": 1108,
+   "check": "test_t06.py",
+   "check_sha256": "e9407ed2607eb99fbe16d1c14293ed5e8c6a0e8f329e6cebc9e4827fa267b6ce",
+   "compactions": 0,
+   "over_budget": 0,
+   "notes": 0
+  }
+ ],
+ "done_count": 0,
+ "created": "2026-11-15",
+ "outputs": [
+  "replies.jsonl",
+  "runs.jsonl"
+ ]
+}

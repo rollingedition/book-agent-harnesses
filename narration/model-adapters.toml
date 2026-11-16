@@ -1,0 +1,57 @@
+# Chapter model-adapters's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.same-loop-two-models]
+say = "The code reads chapter one's stored reply texts and gives them to a scripted model. It gives the stored recording to a replayed model. Both go through the same loop, and the code stops if their step lines differ. It then prints the step lines and how the run ended."
+
+[examples.replay-byte-for-byte]
+say = "The code reads the manifest of the stored run and checks its prompt hash and its check hash against the files, and the hash of its first request against the first stored row. It adds up the stored tokens and checks them against the manifest's totals. It prints the sampling settings from the manifest and checks them against the library's settings. Then it replays the run through the loop and compares each replayed reply text with its stored text, exactly. It prints the count compared, the step count and how the run ended."
+
+[examples.openai-compatible-loopback]
+say = "The code serves the recorded response bodies from a local stub, then sends the first step through the OpenAI-compatible adapter twice. It checks that the recorded body has no structured tool calls field, that the reply carries one read file call whose arguments fit the tool's model, and that both replies have the same text. It then prints the request count, the raw text the server returned, the call, the counts and the finish reason."
+
+[examples.adapter-refuses-unsafe-endpoints]
+say = "The code points the adapter at a local stub that answers with a redirect, and checks that the adapter refuses it and sends nothing to the target. It routes a remote address through a second local stub acting as the proxy, and checks that only the remote request reaches it. It then shows the adapter refusing a key over plain web addresses to a remote host, accepting the same key over secure addresses and on loopback, and refusing a file address."
+
+[[blocks]]
+section = "model-protocol"
+starts = "class Model(Protocol):"
+say = "The model protocol is one class with one method, reply, which takes the messages and the tool schemas and returns a Reply."
+
+[[blocks]]
+section = "local-model"
+starts = "<tool_call>"
+say = "The stored reply is a tool call written as text: a tool call tag, then a line of JSON that names the read file tool and its path argument, then the closing tag. The adapter reads that text, not a structured field."
+
+[[tables]]
+section = "one-loop"
+starts = "| Adapter |"
+say = "A table of the four adapters. For each one it gives where its reply comes from, where it reads the tool calls from, and which example shows it. Three of the four appear in an example. The local model has none, and the recording made with it is what the examples read."
+
+[terms]
+"isinstance" = "is instance"
+"llama.cpp" = "llama C P P"
+"replies.jsonl" = "replies dot J S O N L"
+"kg" = "kilograms"
+"H-01" = "H zero one"
+"sha256" = "S H A 256"
+"RECORDED_SAMPLING" = "recorded sampling"
+"llama-cpp-python" = "llama C P P python"
+"top_k" = "top k"
+"urllib" = "U R L lib"
+"T-01" = "T zero one"
+"ScriptedModel" = "Scripted Model"
+"ReplayModel" = "Replay Model"
+"ReplayMismatch" = "Replay Mismatch"
+"LlamaModel" = "Llama Model"
+"OpenAICompatibleModel" = "Open A I Compatible Model"
+"LoggedModel" = "Logged Model"
+"IndexError" = "index error"
+"TypeError" = "type error"
+"TopP" = "top P"
+"TopK" = "top K"
+"MinP" = "min P"
+
+[words]

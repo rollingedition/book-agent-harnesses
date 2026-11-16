@@ -1,0 +1,56 @@
+# Chapter tools-and-a-loop's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.read-the-issue]
+say = "This example loads task T-01 and lists the case's files in sorted order. The output gives the issue text first, then the file names, and it reports the file count: {{out:read-the-issue:case files}}."
+
+[examples.tool-refusal]
+say = "This example calls the read tool with two paths outside the case, one relative and one absolute. Each comes back as an error text saying the path is outside the case, and the output shows both."
+
+[examples.scripted-loop]
+say = "This example runs the loop on a scripted model with four fixed replies for T-01: read the implementation, read its test, run the visible tests, then finish with the corrected file. The output has one line per step. The run takes {{out:scripted-loop:steps}} steps and {{out:scripted-loop:tool calls}} tool calls, and it ends as {{out:scripted-loop:ended}}."
+
+[examples.recorded-run]
+say = "This example replays the recorded run of T-01 from the open model, step by step. The output has one line per step, then the count of malformed calls, all with one reason, and the token counts. The model's replies are the recorded ones, mistakes included. The run ends as {{out:recorded-run:ended}} after {{out:recorded-run:steps}} steps, without a finish."
+
+[[blocks]]
+section = "the-loop"
+starts = "<tool_call>"
+say = "A read-file call in the reply's text: the tag, then a JSON object with the tool's name and its arguments, then the closing tag. The harness takes the call from between the tags."
+
+[[blocks]]
+section = "replayed-run"
+starts = "<tool_call>"
+say = "The shape of a failing finish call. Its text argument opens with three quote marks inside the JSON. The parser reads the first two as an empty string, then finds a third quote where it expects a comma. The file is left out here."
+
+[[blocks]]
+section = "replayed-run"
+starts = "FAILED"
+say = "The output of a probe run outside the book's examples. The step 3 file, run against the hidden check for T-01, fails the one test with an assertion that the output is 3.5 kg where 3.50 kg is expected."
+
+[[tables]]
+section = "two-tools"
+starts = "| Tool |"
+say = "A table of the three tools. For each one it gives the arguments, what comes back, and whether it ends the run. Only finish ends the run."
+
+[terms]
+"H-01" = "H zero one"
+"T-01" = "T zero one"
+"ReAct" = "ree act"
+"Q4_K_M" = "Q four K M"
+"CPU" = "C P U"
+"<tool_call>" = "tool call tag"
+"read_file" = "read file"
+"run_tests" = "run tests"
+"format_quantity" = "format quantity"
+"lib/loop.py" = "lib slash loop dot pie"
+"unitcraft/format.py" = "unit craft slash format dot pie"
+"tests/test_format.py" = "tests slash test underscore format dot pie"
+"step_cap" = "step cap"
+"_loop" = "underscore loop"
+
+[words]
+"Yao" = "yow"
+"Ng" = "ing"

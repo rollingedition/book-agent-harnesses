@@ -1,0 +1,49 @@
+# Chapter tool-schemas's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.schema-from-model]
+say = "The code takes the schema pydantic builds for a read with a line limit, and prints the one required argument, the bounds and default of the line limit, and its two descriptions. The bounds are {{out:schema-from-model:max_lines minimum}} and {{out:schema-from-model:max_lines maximum}}, and the default is {{out:schema-from-model:max_lines default}}. The last check confirms that this schema says nothing about other keys."
+
+[examples.tool-descriptions]
+say = "The code prints the one-sentence description of each tool in the set, {{out:tool-descriptions:v1 tools}} tools in all. It then checks that chapter one's two tools carry the same sentence in this set, and prints their names. Last, it prints whether chapter one's finish tool carries the same sentence in this set. It does not."
+
+[examples.lax-and-strict]
+say = "The code sends the same values for a line limit through a lax model and a strict one, and prints what each mode does with each value. The string fifty is accepted in lax mode and refused in strict mode, with the error type {{out:lax-and-strict:strict, max_lines str 50}}. The flag true is refused in strict mode with {{out:lax-and-strict:strict, max_lines bool True}}. The float two point five is refused in lax mode with {{out:lax-and-strict:lax, max_lines float 2.5}}. The second part sends a few values to a string field in both modes, and they agree; the number three is refused in both with {{out:lax-and-strict:strict, path int 3}}. The last check compares the two tool sets' schemas once their titles are removed, and they are the same."
+
+[examples.bad-arguments-handed-back]
+say = "The code sends five bad calls, and runs each one that it can read through both tool sets, and prints what each set hands back. The call whose JSON is cut off is not run, because its JSON cannot be read. The others are refused for a missing field, an extra key, a path given as a number, and a call to a tool the set lacks. The second set names its error type for each. The first set leaves the type out, and for the tool the set lacks, it says only that the tool is unknown."
+
+[examples.edit-error-nearest-lines]
+say = "The code takes the edit that task T-01 made on its third reply, from the stored recording, and prints the old text the model copied. Its quotes are missing where the file has them. It then runs the edit through both tool sets. The first set's text says only that the old text is not in the file. The second set's text lists the nearest lines of the file with their numbers and quotes, and says to copy them and call again."
+
+[terms]
+"v1" = "v one"
+"v2" = "v two"
+"ch1" = "chapter one"
+"T-01" = "T zero one"
+"LinesArgs" = "lines args"
+"PathArg" = "path arg"
+"StrictPathArg" = "strict path arg"
+"ConfigDict" = "config dict"
+"Pydantic" = "pie dantic"
+"max_lines" = "max lines"
+"read_file" = "read file"
+"read_files" = "read files"
+"run_tests" = "run tests"
+"edit_file" = "edit file"
+"write_file" = "write file"
+"int_type" = "int type"
+"int_from_float" = "int from float"
+"string_type" = "string type"
+"extra_forbidden" = "extra forbidden"
+"literal_error" = "literal error"
+"Qwen3-4B" = "Chwen three, four B"
+"Qwen3" = "Chwen three"
+"OpenAI" = "Open A I"
+"f-string" = "f string"
+"f-strings" = "f strings"
+'"50"' = "the string fifty"
+
+[words]

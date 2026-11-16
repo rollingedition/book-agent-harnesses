@@ -1,0 +1,34 @@
+# Chapter context-budgets's narration (re-check narration): descriptions of its examples, blocks and tables, as
+# [examples.ID], [[blocks]] and [[tables]], and its own readings. Only this chapter's writer edits this file, so
+# writers working in parallel never append to one shared lexicon. A reading every chapter needs goes into
+# narration/lexicon.toml, which wins over a chapter's.
+
+[examples.budget-counts-tokens]
+say = "The code reads the recording's stored prompt count for every step, checks the manifest's context size and reply limit against the harness, and prints the prompt budget. Then it prints the largest prompt of any step, {{out:budget-counts-tokens:largest prompt, in tokens}} tokens, from run {{out:budget-counts-tokens:largest prompt, run}} at step {{out:budget-counts-tokens:largest prompt, step}}, and each run's own largest prompt against the budget."
+
+[examples.estimate-vs-recorded]
+say = "The code replays every task-set step and estimates its prompt at three characters per token, then compares each estimate with the count the model reported. It prints how many estimates were above the count, which is every step, and how many fell under it: {{out:estimate-vs-recorded:task-set steps where the estimate is below the recorded count}}. Then it runs the same comparison on the chapter-5-notes recording, the held-out check, and prints its steps and its ratios."
+
+[examples.compact-keeps-last-result]
+say = "The code runs a short task under a small budget, so the reads cross it. It prints how many calls were compacted, the size of the part that compaction cannot cut, the order of the messages on the last call, and two cuts: one before the last result on its own, which is refused, and one before its call, which is clean."
+
+[examples.notes-survive]
+say = "The code runs a scripted task in which three notes are written after three reads. It prints how many compactions happened, and that all {{out:notes-survive:notes written}} notes are whole in the block sent with the last request. It also prints the summary's line for the first read, which has the file's docstring and not the fact the note kept."
+
+[examples.recorded-context-use]
+say = "The code replays the three recorded runs with compaction on. For each run it prints its kind, how it ended, whether its check passed, and how many steps and note calls it made. Then it prints the totals: {{out:recorded-context-use:total note calls}} note calls, {{out:recorded-context-use:total compactions}} compactions, and {{out:recorded-context-use:runs whose check passed}} runs whose check passed."
+
+[terms]
+"n_ctx" = "N context"
+"max_tokens" = "max tokens"
+"compact-2026-09-04" = "compact twenty twenty-six oh nine oh four"
+"replies.jsonl" = "replies dot J S O N L"
+"T-01" = "T zero one"
+"T-02" = "T zero two"
+"T-06" = "T zero six"
+"T-16" = "T sixteen"
+"over_budget" = "over budget"
+"ask_user" = "ask user"
+"no_progress" = "no progress"
+
+[words]
