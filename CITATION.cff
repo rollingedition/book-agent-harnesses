@@ -8,7 +8,7 @@ abstract: 'Build the code around a model that makes an agent you can trust with 
 url: https://rollingedition.com/agent-harnesses
 repository-code: https://github.com/rollingedition/book-agent-harnesses
 license:
-- CC-BY-4.0
+- CC-BY-NC-4.0
 - MIT
 preferred-citation:
   type: book
