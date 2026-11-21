@@ -19,6 +19,8 @@ say = "The code runs a scripted task in which three notes are written after thre
 say = "The code replays the three recorded runs with compaction on. For each run it prints its kind, how it ended, whether its check passed, and how many steps and note calls it made. Then it prints the totals: {{out:recorded-context-use:total note calls}} note calls, {{out:recorded-context-use:total compactions}} compactions, and {{out:recorded-context-use:runs whose check passed}} runs whose check passed."
 
 [terms]
+"arXiv:2611.24357v1" = "archive, two six one one, dot two four three five seven, version one"
+"DeepSeek" = "Deep Seek"
 "n_ctx" = "N context"
 "max_tokens" = "max tokens"
 "compact-2026-09-04" = "compact twenty twenty-six oh nine oh four"

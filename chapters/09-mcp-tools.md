@@ -84,6 +84,8 @@ The run uses task T-01, the case's first task, which [chapter 1](#one-task) intr
 
 Nothing in this run measures how often a model follows text like this. The model here is scripted to follow it, so the run shows only what the harness does with the call that results. The point is where the defence sits. The injected sentence changed what the model asked for. It did not change the stop rules, the allowlist or the gate, and so the call waited for a person, who refused it.
 
+Memory that an agent keeps between tasks is one more way for such text to reach the model. A 2026 preprint on DriftGuard studies memory drift, in which an adversarial or misleading memory that the agent retrieves changes its tool calls and the task's outcome ([Pan and colleagues, arXiv:2611.25583v1, preprint, read Nov 21, 2026](https://arxiv.org/abs/2611.25583)). This harness's [notes](#notes) start empty on every run, and a harness that reads memory back from earlier runs owes it the same treatment as a server's result.
+
 **Working rule:** Label every result from another party, fence it, and pass it to the model as data. Keep the stop rules, the allowed commands and the approvals out of anything the model reads. A call that a server's text asks for is an ordinary call, and a change waits for the gate like any other change.
 
 ## What goes wrong in production {#mcp-tools-in-production}
