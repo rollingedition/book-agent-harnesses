@@ -33,6 +33,8 @@ starts = "| Ended as |"
 say = "A table of how each version's runs ended: finish, asking the user, or the step cap. Version two's no-progress endings are given in the sentence under it."
 
 [terms]
+"arXiv:2611.23335v1" = "archive, two six one one, dot two three three three five, version one"
+"LiveCodeBench" = "Live Code Bench"
 "pass@1" = "pass at one"
 "pass^k" = "pass hat k"
 "step_cap" = "step cap"

@@ -19,6 +19,8 @@ say = "The code runs task T zero one, the case's first task, with a scripted mod
 say = "The code gives the harness's marking function eight spellings of the closing tag, in capitals, with spaces, with fullwidth brackets, with a zero width space, and as entities. In every result the harness's own two tags are the only tags left, so no spelling ends the fence early. The code prints the escaped form of one variant."
 
 [terms]
+"arXiv:2611.25583v1" = "archive, two six one one, dot two five five eight three, version one"
+"DriftGuard" = "Drift Guard"
 "[a-z][a-z0-9]*" = "a to z, then a to z or zero to nine, repeated"
 "<" = "less than"
 ">" = "greater than"
