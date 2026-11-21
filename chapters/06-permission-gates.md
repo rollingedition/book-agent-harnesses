@@ -30,7 +30,7 @@ A write can also fail partway through an apply. The next example gives a proposa
 
 ## Which mode this harness is in {#mode}
 
-A gate needs an answer to one question first: who answers when the agent stops to ask? Claude Code's interactive mode asks a person in the session. The Claude Agent SDK offers several permission modes that differ on this point, and a harness has to say which one it resembles, because the answer decides what a call that needs approval does when no one can respond. This harness has no terminal and no session. It is a headless run, and the only party who can answer is a callback that the caller passes in.
+A gate needs an answer to one question first: who answers when the agent stops to ask? Claude Code's interactive mode asks a person in the session. The Claude Agent SDK offers several permission modes that differ on this point, and a harness has to say which one it resembles, because the answer decides what a call that needs approval does when no one can respond. This harness has no terminal and no session: it is a headless run, and the only party who can answer is a callback that the caller passes in.
 
 The vendor documentation draws the cases apart. [Claude Code's permissions page](https://code.claude.com/docs/en/permissions.md) says that rules are checked in the order deny, ask, allow, and that the first match decides the outcome. It also says that Claude Code asks before it modifies files by default, and that read-only work inside the working directory runs without a prompt. [The Agent SDK's permissions page](https://code.claude.com/docs/en/agent-sdk/permissions.md) describes a `dontAsk` mode, in which any call that would otherwise prompt is denied without calling the approval callback. Neither product was run for this chapter, so the claims about them are the vendors' and are marked as such.
 
@@ -48,7 +48,7 @@ A proposal is the copy's whole diff against the library, not the summary the mod
 
 [OWASP's guidance on excessive agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/) asks for a person to approve high-impact actions before they are taken, and for an agent to have only the tools it needs. That is guidance, not a measurement, and this chapter treats it as the reason for the design and not as proof that the design works.
 
-The task set is 20 tasks on the case, most of them scored by a hidden check ([the task set](#task-set) covers all of them). Its runs were recorded with tool set v1 and no gate, from Qwen3-4B-Instruct-2507, the model that [chapter 1](#replayed-run) replays. A gate leaves each request unchanged, so a replay through it sends the same requests and gets the same recorded replies. Start with the path that should work: the recorded T-04 run, replayed, with a person who answers yes.
+The [task set](#stop-rules) is 20 tasks on the case, most of them scored by a hidden check ([the task set](#task-set) covers all of them). Its runs were recorded with tool set v1 and no gate, from Qwen3-4B-Instruct-2507, the model that [chapter 1](#replayed-run) replays. A gate leaves each request unchanged, so a replay through it sends the same requests and gets the same recorded replies. Start with the path that should work: the recorded T-04 run, replayed, with a person who answers yes.
 
 [Example: gate-applies-only-on-yes](../examples/gate-applies-only-on-yes.py)
 
@@ -142,7 +142,7 @@ The script adds a tool whose description says it is a read-only helper, and call
 
 ## Allow lists do not skip the check {#allow-lists}
 
-The usual way to skip a gate is an allow list. A tool on the list runs without a question, and a gate placed at the question is then bypassed for that tool. In the Agent SDK, a tool approved at an earlier step skips the approval callback, so checks that live only in the callback are bypassed for that tool. [The Agent SDK's page](https://code.claude.com/docs/en/agent-sdk/permissions.md) says so. Claude Code orders its rules differently, deny first, then ask, then allow, and [its permissions page](https://code.claude.com/docs/en/permissions.md) says an allow rule cannot carve an exception out of a deny rule.
+The usual way to skip a gate is an allow list. A tool on an allow list runs without a question, and a gate placed at the question is then bypassed for that tool. In the Agent SDK, a tool approved at an earlier step skips the approval callback, so checks that live only in the callback are bypassed for that tool. [The Agent SDK's page](https://code.claude.com/docs/en/agent-sdk/permissions.md) says so. Claude Code orders its rules differently, deny first, then ask, then allow, and [its permissions page](https://code.claude.com/docs/en/permissions.md) says an allow rule cannot carve an exception out of a deny rule.
 
 This gate has no allow list. Every tool in the set goes through the wrapper, which refuses a name the table does not list, and the check on a change sits in `finish`, where the diff is read. No flag on a tool decides whether that check runs, because no tool is exempt from the wrapper. A gate that depends on a flag the model or a server can set is not a gate. [Chapter 9](#mcp-tools) applies this rule to MCP tools, and it sends them through this chapter's approvals rather than through an allow list.
 
