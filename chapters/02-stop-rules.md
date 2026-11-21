@@ -6,7 +6,7 @@ chapter_id: stop-rules
 
 By the end of this chapter you can say why any run stopped, from the one word the harness records for it, and add the two rules that end a run which has stopped making progress.
 
-[Chapter 1](#tools-and-a-loop) built a loop that ends a run in one of three ways: the model calls `finish`, the run reaches its step cap of 8, or the model gives no call twice. That covers a model that finishes. It doesn't cover a model that keeps sending the same edit, which is what an edit that can't find its text invites. Chapter 1's tools have no edit, so that case comes from the task set: the 20 tasks that [testing the agent](#testing-the-agent) scores, run with tool set v1, whose tools include edits. In the running case, unitcraft, a small units library whose visible suite gives a count after each change, a stuck run of that kind goes to the cap, and the only record of its end is that the cap ended it. Each lost step is a model call and a line in the transcript that a reviewer has to read. This chapter names the ways the loop ends a run, adds two rules that end a stuck run early, and measures what they do on the task set.
+[Chapter 1](#tools-and-a-loop) built a loop that ends a run in one of three ways: the model calls `finish`, the run reaches its step cap of 8, or the model gives no call twice. That covers a model that finishes. It doesn't cover a model that keeps sending the same edit, which is what an edit that can't find its text invites. Chapter 1's tools have no edit, so that case comes from the task set: the 20 tasks that [testing the agent](#testing-the-agent) scores, run with [tool set v1](#tool-schemas), whose tools include edits. In the running case, unitcraft, a small units library whose visible suite gives a count after each change, a stuck run of that kind goes to the cap, and the only record of its end is that the cap ended it. Each lost step is a model call and a line in the transcript that a reviewer has to read. This chapter names the ways the loop ends a run, adds two rules that end a stuck run early, and measures what they do on the task set.
 
 ## Ways a run ends {#ways-to-end}
 
@@ -37,7 +37,7 @@ We list the endings the harness can observe, not every reason a run can fail. A 
 
 ## The budget counts steps {#step-budget}
 
-A model that never calls `finish` gives the loop no reason to stop, so the loop needs a count that does. A step is one call to the model and the reply it returns. The step budget is the most steps a run may take, and the loop stops when it reaches that number. Steps are counted, not timed: the loop reads no clock.
+A model that never calls `finish` gives the loop no reason to stop, so the loop needs a count that does. A [step](#the-loop) is one call to the model and the reply it returns. The step budget is the most steps a run may take, and the loop stops when it reaches that number. Steps are counted, not timed: the loop reads no clock.
 
 The [task set](#testing-the-agent), the 20 tasks this chapter's last example counts, runs on tool set v1 with a budget of {{out:stop-rules-over-task-set:task set step cap}} steps. Chapter 1 uses a smaller budget, 8.
 

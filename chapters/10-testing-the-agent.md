@@ -80,7 +80,7 @@ A score needs one rule for done, and the rule has to hold for a fix, a new featu
 
 A fix or an implement task is done when the run ended with `finish`, its hidden check passes on the final copy, and the task's protected paths match the case byte for byte. Here the protected path is `tests/` for every such task. A stop task is done when the run ended with `ask_user`, its question contains one of the task's reason words, and no file in the copy differs from the case. The match is a substring match on the whole question, so a word inside a path counts. A run that hits a limit or a stuck rule is not done. A child that hits its budget and hands back a stop as a handoff to its parent has not finished, so it is not done ([a-stop-handed-back](#a-stop-handed-back)).
 
-The score is pass@1: the number of done tasks, divided by the number of tasks. pass^k is a different measure. [tau-bench](https://arxiv.org/abs/2406.12045) defines it as the chance that all k trials of a task succeed, "averaged across tasks", and it needs k trials per task. Each task here has one run, so k above 1 is not measured, and pass^k is not reported ([what the score does not say](#score-limits)). The estimator in `lib/tasks.py` gives the mean when k is 1, and the example asserts that.
+The score is pass@1: the number of done tasks, divided by the number of tasks. pass^k is a different measure. [tau-bench](https://arxiv.org/abs/2406.12045) defines pass^k as the chance that all k trials of a task succeed, "averaged across tasks", and it needs k trials per task. Each task here has one run, so k above 1 is not measured, and pass^k is not reported ([what the score does not say](#score-limits)). The estimator in `lib/tasks.py` gives the mean when k is 1, and the example asserts that.
 
 Before it prints anything, the script replays the stored runs and checks them against the record, and it asserts the recorded counts too.
 
@@ -112,7 +112,7 @@ The count stays as the rule gives it, and the scorer stays as it is. A stricter 
 
 ## How sure the count is {#how-sure}
 
-The count of done tasks carries an error that the bare number does not show. For the recorded run it is {{out:score-task-set:done by the rule}} done, with a naive range of {{out:score-task-set:whole counts}} at about 95%. The range treats each task as an independent trial, and it is built with the usual multiplier for a 95% interval, which is slightly under two. The standard error of the proportion is the square root of the proportion times one minus the proportion, divided by the number of tasks. The example prints it as {{out:score-task-set:standard error of the proportion}}, which is under two tasks out of 20, and the range runs about two of those either side of the count.
+The count of done tasks carries an error that the bare number does not show. For the recorded run it is {{out:score-task-set:done by the rule}} done, with a naive range of {{out:score-task-set:whole counts}} at about 95%. The naive range treats each task as an independent trial, and it is built with the usual multiplier for a 95% interval, which is slightly under two. The standard error of the proportion is the square root of a fraction: the proportion times one minus the proportion, divided by the number of tasks. The example prints it as {{out:score-task-set:standard error of the proportion}}, which is under two tasks out of 20, and the range runs about two of those either side of the count.
 
 At 20 tasks the normal approximation is rough. This range covers less than 95% of the time at a proportion of one quarter, so the 95% is a label, not a guarantee.
 
@@ -124,7 +124,7 @@ A single run is noisy in its own right. A 2026 study of agent runs on SWE-bench 
 
 ## Two harness versions, compared as counts {#v1-v2}
 
-Two harness versions run on the same tasks give two counts, and counts alone cannot say which harness is better. Harness v1 is the loop of [chapter 1](#tools-and-a-loop) with tool set v1 from [chapter 3](#tool-schemas), a step cap of {{out:compare-v1-v2:task-set step cap}} steps, and no stop rule beyond it. In harness v1, a run that keeps going without a finish or a question ends only at the cap. Harness v2 is the configuration of [chapter 5](#context-budgets). It runs tool set v2, with strict argument models, typed error results and edit errors that name the nearest lines of the file. It adds a `note` tool, two stop rules from [chapter 2](#stop-rules), and compaction under the context budget. Its step cap is {{out:compare-v1-v2:task-set-v2 step cap}} too. Both harnesses use the same hidden checks.
+Two harness versions run on the same tasks give two counts, and counts alone cannot say which harness is better. Harness v1 is the loop of [chapter 1](#tools-and-a-loop) with tool set v1 from [chapter 3](#tool-schemas), a step cap of {{out:compare-v1-v2:task-set step cap}} steps, and no stop rule beyond it. In harness v1, a run that keeps going without a finish or a question ends only at the cap. Harness v2 is the configuration of [chapter 5](#context-budgets): it runs tool set v2, with strict argument models, typed error results and edit errors that name the nearest lines of the file. It adds a `note` tool, two stop rules from [chapter 2](#stop-rules), and compaction under the context budget. Its step cap is {{out:compare-v1-v2:task-set-v2 step cap}} too. Both harnesses use the same hidden checks.
 
 Printed side by side, each task's done flag, ending, steps, tool calls and tokens for both recordings show where the two harnesses part ways. Totals and endings follow the per-task lines. The script also asserts that both recordings use the same hidden check for every task, so a difference in the counts cannot come from a difference in the checks.
 
@@ -160,7 +160,7 @@ A score on {{out:score-task-set:tasks}} small tasks, each run once, with one ope
 
 The count also depends on the scorer's wording, as [T-18's path match](#t18-path) shows.
 
-The count comes from stored counts only. The scorer reads the recorded runs, and their steps and tokens are the counts the recording stored, not new measurements ([cost as counts](#cost-not-money)). No money is quoted, for the reason [chapter 11](#cost-not-money) gives.
+The count comes from [stored counts](#traces-and-cost) only. The scorer reads the recorded runs, and their steps and tokens are the counts the recording stored, not new measurements ([cost as counts](#cost-not-money)). No money is quoted, for the reason [chapter 11](#cost-not-money) gives.
 
 Three changes would move the count and its range. A second run of each task would let this chapter measure the spread that it now only cites from another study. A second model or setting would show whether the count moves with the model. And tasks written by someone outside this book would show whether these tasks fit the harness too well, a question these tasks cannot answer for themselves.
 

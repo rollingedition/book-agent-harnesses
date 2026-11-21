@@ -1,0 +1,849 @@
+# The terms this book defines, each quoted from the sentence that defines it (writing standards W-77 to W-80).
+
+context = "artificial-intelligence"
+
+[[concepts]]
+id = "agent-harness"
+term = "agent harness"
+aliases = ["harness"]
+context = "ai-agents"
+definition = "The harness supplies the loop, the tools and the limits on what those tools may do"
+section = "tools-and-a-loop"
+
+[[concepts]]
+id = "step"
+term = "step"
+aliases = ["steps"]
+context = "ai-agents"
+definition = "A step is one model call."
+section = "the-loop"
+example = "scripted-loop"
+
+[concepts.relations]
+prerequisite-of = ["step-budget"]
+
+[[concepts]]
+id = "tool-call"
+term = "tool call"
+aliases = ["tool calls"]
+context = "ai-agents"
+definition = "A tool call is one request inside a step"
+section = "the-loop"
+example = "scripted-loop"
+
+[concepts.relations]
+part-of = ["step"]
+
+[[concepts]]
+id = "malformed-call"
+term = "malformed call"
+aliases = ["malformed calls"]
+context = "ai-agents"
+definition = "The harness never runs a block that doesn't parse: it records it as a malformed call and hands the reason back to the model as an error result, so the model can try again."
+section = "the-loop"
+example = "recorded-run"
+
+[[concepts]]
+id = "react"
+term = "ReAct"
+context = "ai-agents"
+definition = "ReAct interleaves written reasoning with actions"
+section = "the-loop"
+
+[[concepts]]
+id = "scripted-model"
+term = "scripted model"
+aliases = ["ScriptedModel"]
+context = "ai-agents"
+definition = "A scripted model gives back the replies you give it, in order, and nothing else."
+section = "scripted-run"
+example = "scripted-loop"
+
+[[concepts]]
+id = "replay"
+term = "replay"
+aliases = ["replayed run", "ReplayModel"]
+context = "ai-agents"
+definition = "Replay checks that each request matches the one the recording holds, where a request is the messages and tool schemas sent at one step, and then returns the recorded reply."
+section = "replayed-run"
+example = "recorded-run"
+
+[[concepts]]
+id = "request"
+term = "request"
+context = "large-language-models"
+definition = "a request is the messages and tool schemas sent at one step"
+section = "replayed-run"
+example = "recorded-run"
+
+[concepts.relations]
+prerequisite-of = ["replay"]
+
+[[concepts]]
+id = "ended"
+term = "ended"
+aliases = ["stop reason", "ended value"]
+context = "ai-agents"
+definition = "Every run ends for one stated reason, and the harness writes that reason into the run's `ended` field."
+section = "ways-to-end"
+example = "stop-rules-over-task-set"
+
+[[concepts]]
+id = "task-set"
+term = "task set"
+context = "llm-evaluation"
+definition = "the task set: the 20 tasks that testing the agent scores, run with tool set v1, whose tools include edits"
+section = "stop-rules"
+example = "stop-rules-over-task-set"
+
+[[concepts]]
+id = "turn"
+term = "turn"
+context = "ai-agents"
+definition = "This book keeps \"turn\" for an exchange with the person who gave the task."
+section = "ways-to-end"
+
+[concepts.relations]
+contrasts-with = ["step"]
+
+[[concepts]]
+id = "step-budget"
+term = "step budget"
+aliases = ["step cap", "step_cap"]
+context = "ai-agents"
+definition = "The step budget is the most steps a run may take, and the loop stops when it reaches that number."
+section = "step-budget"
+example = "budget-stops-a-loop"
+
+[[concepts]]
+id = "identical-call"
+term = "identical call"
+aliases = ["identical calls"]
+context = "ai-agents"
+definition = "A call is identical when it has the same tool name and the same arguments, compared with the keys sorted."
+section = "repeated-calls"
+example = "repeated-call-stops"
+
+[concepts.relations]
+prerequisite-of = ["repeated-call"]
+
+[[concepts]]
+id = "repeated-call"
+term = "repeated call"
+aliases = ["repeated_call", "repeated-call rule"]
+context = "ai-agents"
+definition = "Three identical calls in a row end the run as `repeated_call`."
+section = "repeated-calls"
+example = "repeated-call-stops"
+
+[concepts.relations]
+broader = ["ended"]
+
+[[concepts]]
+id = "no-progress"
+term = "no progress"
+aliases = ["no_progress", "no-progress rule"]
+context = "ai-agents"
+definition = "No progress is two edits in a row that leave the harness's test counts unchanged."
+section = "stop-rules-decisions"
+example = "no-progress-stops"
+
+[concepts.relations]
+broader = ["ended"]
+
+[[concepts]]
+id = "no-tool-call"
+term = "no_tool_call"
+context = "ai-agents"
+definition = "A second reply with no call in a row ends the run as `no_tool_call`."
+section = "ways-to-end"
+
+[concepts.relations]
+broader = ["ended"]
+
+[[concepts]]
+id = "visible-tests"
+term = "visible tests"
+aliases = ["visible suite"]
+context = "llm-evaluation"
+definition = "the visible tests, the case's own test suite"
+section = "no-progress"
+example = "no-progress-stops"
+
+[concepts.relations]
+contrasts-with = ["hidden-check"]
+
+[[concepts]]
+id = "tool-set-v1"
+term = "tool set v1"
+aliases = ["v1 tools"]
+context = "ai-agents"
+definition = "Tool set v1 is the seven tools the task-set recording was made with: `list_files`, `read_file`, `run_tests`, `write_file`, `edit_file`, `ask_user` and `finish`."
+section = "tool-schemas"
+example = "bad-arguments-handed-back"
+
+[[concepts]]
+id = "tool-set-v2"
+term = "tool set v2"
+aliases = ["v2 tools"]
+context = "ai-agents"
+definition = "Tool set v2 has the same seven tools as tool set v1, with the same sentences and the same system prompt, and three changes: strict argument models, the error type named in each refusal, and nearest-line errors for a failed edit."
+section = "tool-schemas"
+example = "bad-arguments-handed-back"
+
+[concepts.relations]
+contrasts-with = ["tool-set-v1"]
+
+[[concepts]]
+id = "argument-model"
+term = "argument model"
+aliases = ["argument models"]
+context = "ai-agents"
+definition = "an argument model, a small pydantic class that lists the fields the tool takes"
+section = "schema-says"
+example = "schema-from-model"
+applies_to = ["pydantic"]
+
+[concepts.relations]
+prerequisite-of = ["tool-schema"]
+implemented-by = [{ to = "pydantic", versions = ">=2,<3" }]
+
+[[concepts]]
+id = "tool-schema"
+term = "tool schema"
+aliases = ["schema", "tool schemas"]
+context = "ai-agents"
+definition = "Think of a tool's schema as the form the model fills in before it makes a call."
+section = "schema-says"
+example = "schema-from-model"
+
+[[concepts]]
+id = "tool-sentence"
+term = "tool sentence"
+aliases = ["tool description"]
+context = "ai-agents"
+definition = "A tool's sentence says what the tool is for."
+section = "schema-says"
+example = "tool-descriptions"
+
+[[concepts]]
+id = "lax-mode"
+term = "lax mode"
+context = "ai-agents"
+definition = "In pydantic's default, lax mode, a value is converted when the conversion is clear and refused when it is not."
+section = "lax-or-strict"
+example = "lax-and-strict"
+applies_to = ["pydantic"]
+
+[concepts.relations]
+implemented-by = [{ to = "pydantic", versions = ">=2,<3" }]
+
+[[concepts]]
+id = "strict-mode"
+term = "strict mode"
+context = "ai-agents"
+definition = "In strict mode, a value must already have the declared type."
+section = "lax-or-strict"
+example = "lax-and-strict"
+applies_to = ["pydantic"]
+
+[concepts.relations]
+contrasts-with = ["lax-mode"]
+implemented-by = [{ to = "pydantic", versions = ">=2,<3" }]
+
+[[concepts]]
+id = "refusal"
+term = "refusal"
+aliases = ["refusals"]
+context = "ai-agents"
+definition = "each refusal goes back as the text of a tool result, the same kind of text as any other result, which the model reads on its next step"
+section = "errors-readable"
+example = "bad-arguments-handed-back"
+
+[[concepts]]
+id = "edit"
+term = "edit"
+aliases = ["edits"]
+context = "ai-agents"
+definition = "An edit names the text it replaces."
+section = "edit-errors"
+example = "edit-error-nearest-lines"
+
+[[concepts]]
+id = "nearest-lines"
+term = "nearest lines"
+aliases = ["nearest-line errors"]
+context = "ai-agents"
+definition = "The harness slides a window of the same length as `old` down the file, keeps the window that matches best, and breaks a tie toward the earlier window, so the answer is the same on every run."
+section = "edit-errors"
+example = "edit-error-nearest-lines"
+
+[[concepts]]
+id = "model-adapter"
+term = "model adapter"
+aliases = ["adapter", "adapters"]
+context = "ai-agents"
+definition = "The adapter is the code that makes each source, from a scripted list of strings to an HTTP endpoint, look the same to the loop"
+section = "model-adapters"
+example = "same-loop-two-models"
+
+[[concepts]]
+id = "finish-reason"
+term = "finish reason"
+aliases = ["finish_reason"]
+context = "large-language-models"
+definition = "the finish reason, which says whether the model stopped on its own or ran out of tokens"
+section = "model-protocol"
+example = "openai-compatible-loopback"
+
+[[concepts]]
+id = "request-hash"
+term = "request hash"
+context = "ai-agents"
+definition = "`ReplayModel` hashes the request it was given, the sha256 of its messages and tool schemas in canonical JSON"
+section = "scripted-and-replayed"
+example = "replay-byte-for-byte"
+
+[concepts.relations]
+computed-from = ["request"]
+
+[[concepts]]
+id = "gguf"
+term = "GGUF"
+aliases = ["GGUF file"]
+context = "large-language-models"
+definition = "a GGUF file, the single-file format llama.cpp reads"
+section = "local-model"
+
+[[concepts]]
+id = "max-tokens"
+term = "max_tokens"
+context = "large-language-models"
+definition = "`max_tokens`, the most the reply may take"
+section = "window"
+example = "budget-counts-tokens"
+
+[[concepts]]
+id = "prompt-budget"
+term = "prompt budget"
+context = "large-language-models"
+definition = "This chapter calls the tokens left for everything the model reads on one step the prompt budget."
+section = "window"
+example = "budget-counts-tokens"
+
+[concepts.relations]
+computed-from = ["max-tokens"]
+
+[[concepts]]
+id = "estimate"
+term = "estimate"
+aliases = ["prompt estimate"]
+context = "large-language-models"
+definition = "The estimate counts the characters of every message and of the tool schemas, and divides by three, rounding up: one token for every {{out:estimate-vs-recorded:estimate rule, characters per token}} characters."
+section = "estimate"
+example = "estimate-vs-recorded"
+
+[concepts.relations]
+contrasts-with = ["prompt-count"]
+
+[[concepts]]
+id = "local-compaction"
+term = "local compaction"
+aliases = ["compaction"]
+context = "ai-agents"
+definition = "Compaction here is local: the harness writes the summary itself, and the model never sees it being written."
+section = "compaction"
+example = "compact-keeps-last-result"
+
+[[concepts]]
+id = "fixed-part"
+term = "fixed part"
+context = "ai-agents"
+definition = "The fixed part, the system prompt, the tool schemas and the issue"
+section = "compaction"
+example = "compact-keeps-last-result"
+
+[[concepts]]
+id = "notes"
+term = "notes"
+aliases = ["note tool"]
+context = "ai-agents"
+definition = "The harness adds a `note` tool: the model writes one line per fact, and the harness sends the notes after the issue at every step."
+section = "notes"
+example = "notes-survive"
+
+[concepts.relations]
+contrasts-with = ["local-compaction"]
+
+[[concepts]]
+id = "permission-gate"
+term = "permission gate"
+aliases = ["gate"]
+context = "ai-agents"
+definition = "a gate that reads the diff at `finish`"
+section = "permission-gates"
+example = "gate-applies-only-on-yes"
+
+[[concepts]]
+id = "library-guard"
+term = "library guard"
+aliases = ["guard"]
+context = "ai-agents"
+definition = "a guard that compares the library's bytes around every tool call"
+section = "permission-gates"
+example = "library-guard-fails-closed"
+
+[[concepts]]
+id = "library-changed"
+term = "library_changed"
+context = "ai-agents"
+definition = "when the library has changed, the run ends as `library_changed`, the harness applies nothing, and it restores nothing"
+section = "permission-gates"
+example = "library-guard-fails-closed"
+
+[concepts.relations]
+broader = ["ended"]
+
+[[concepts]]
+id = "copy"
+term = "copy"
+aliases = ["scratch copy"]
+context = "ai-agents"
+definition = "Each run gets its own copy, made by `scratch_copy` in `run_task`, and the tools work through a `Workspace` rooted at that copy."
+section = "copy-first"
+example = "apply-all-or-nothing"
+
+[[concepts]]
+id = "headless-run"
+term = "headless run"
+aliases = ["headless run with a callback"]
+context = "ai-agents"
+definition = "This harness has no terminal and no session: it is a headless run, and the only party who can answer is a callback that the caller passes in."
+section = "mode"
+
+[[concepts]]
+id = "proposal"
+term = "proposal"
+aliases = ["proposals"]
+context = "ai-agents"
+definition = "A proposal is the copy's whole diff against the library, not the summary the model wrote."
+section = "gate-in-finish"
+example = "gate-applies-only-on-yes"
+
+[[concepts]]
+id = "proposal-id"
+term = "proposal ID"
+context = "ai-agents"
+definition = "Each proposal takes the next ID from a counter on its gate, `p-1`, then `p-2`, and so on"
+section = "bound-approval"
+example = "approval-in-transcript"
+
+[concepts.relations]
+part-of = ["proposal"]
+
+[[concepts]]
+id = "proposal-hash"
+term = "proposal hash"
+context = "ai-agents"
+definition = "The proposal's identity is a hash of the changed bytes"
+section = "gate-in-finish"
+example = "answer-binds-bytes"
+
+[concepts.relations]
+part-of = ["proposal"]
+
+[[concepts]]
+id = "never-class"
+term = "never class"
+context = "ai-agents"
+definition = "The table in `lib/permissions.py` is the only source of a tool's class, and a tool outside it is classed `never`."
+section = "wrapper"
+example = "unknown-tool-refused"
+
+[concepts.relations]
+broader = ["tool-class"]
+
+[[concepts]]
+id = "allow-list"
+term = "allow list"
+aliases = ["allow lists"]
+context = "ai-agents"
+definition = "A tool on an allow list runs without a question, and a gate placed at the question is then bypassed for that tool."
+section = "allow-lists"
+
+[[concepts]]
+id = "teaching-sandbox"
+term = "teaching sandbox"
+aliases = ["sandbox"]
+context = "ai-agents"
+definition = "What the book builds is the sandbox in `sandbox.py`, which is teaching code and a second layer, not the protection itself."
+section = "sandbox-and-secrets"
+example = "limits-stop-a-hog"
+
+[[concepts]]
+id = "command"
+term = "command"
+aliases = ["argv list"]
+context = "ai-agents"
+definition = "A command is an argv list, never a shell string, and the runner starts it with `shell=False`, so no shell reads its quotes or its semicolons (subprocess)."
+section = "teaching-sandbox"
+example = "argv-allowlist"
+
+[[concepts]]
+id = "argv-allowlist"
+term = "argv allowlist"
+aliases = ["allowlist"]
+context = "ai-agents"
+definition = "The allowlist is the check a command tool would use: it parses a command string once with `shlex.split`, and compares the argv with a short list of exact argv tuples."
+section = "listed-programs"
+example = "argv-allowlist"
+
+[[concepts]]
+id = "handoff"
+term = "handoff"
+aliases = ["handoffs"]
+context = "ai-agents"
+definition = "a handoff is a run's end with a question back to a person, instead of a finish"
+section = "subagents-and-handoffs"
+example = "summary-to-parent"
+
+[[concepts]]
+id = "structured-handoff"
+term = "structured handoff"
+context = "ai-agents"
+definition = "the harness's structured handoff after a stop, which carries the stop reason, what the run tried and a question"
+section = "subagents-and-handoffs"
+example = "handoff-on-stuck"
+
+[concepts.relations]
+broader = ["handoff"]
+
+[[concepts]]
+id = "child"
+term = "child"
+aliases = ["subagent", "child run"]
+context = "ai-agents"
+definition = "A child is the loop from chapter 1, started by a parent in the middle of its own run."
+section = "child-loop"
+example = "child-with-budget"
+
+[[concepts]]
+id = "child-budget"
+term = "child budget"
+context = "ai-agents"
+definition = "The child's budget counts the child's own model calls, from its first call, so the parent's steps don't pay for the child's work, and a child that loops runs out of its own budget."
+section = "child-loop"
+example = "child-with-budget"
+
+[concepts.relations]
+part-of = ["child"]
+
+[[concepts]]
+id = "brief"
+term = "brief"
+context = "ai-agents"
+definition = "The brief is the job as the child receives it."
+section = "brief"
+example = "summary-to-parent"
+
+[[concepts]]
+id = "stuck-stop"
+term = "stuck stop"
+aliases = ["stuck stops"]
+context = "ai-agents"
+definition = "For the three stops that end a child stuck, `step_cap`, `repeated_call` and `no_progress`, the harness builds the handoff from the run's own record: its trace, its streak of repeated calls and its test counts."
+section = "a-stop-handed-back"
+example = "handoff-on-stuck"
+
+[concepts.relations]
+prerequisite-of = ["structured-handoff"]
+
+[[concepts]]
+id = "class-table"
+term = "class table"
+aliases = ["POLICY"]
+context = "ai-agents"
+definition = "The harness's class table, `POLICY` in `lib/mcp_tools.py`, gives each server tool a class, read or change, and only names that table gives a class appear in that line."
+section = "listing-tools"
+example = "list-server-tools"
+
+[[concepts]]
+id = "server-tool-prefix"
+term = "server tool prefix"
+aliases = ["server__tool"]
+context = "ai-agents"
+definition = "the harness gives each server's tools a prefix: `server__tool`, with a double underscore as the separator"
+section = "namespacing"
+example = "namespace-clash"
+
+[[concepts]]
+id = "tool-class"
+term = "tool class"
+context = "ai-agents"
+definition = "Chapter 6 divided the harness's tools into classes: a read runs, and a change waits."
+section = "other-tools"
+example = "annotation-is-a-hint"
+
+[[concepts]]
+id = "tool-annotation"
+term = "tool annotation"
+aliases = ["annotation", "annotations"]
+context = "ai-agents"
+definition = "An annotation is the server's own description of its tool, and a server that is wrong, or compromised, sets the same field as one that is right."
+section = "other-tools"
+example = "annotation-is-a-hint"
+applies_to = ["mcp"]
+
+[concepts.relations]
+contrasts-with = ["class-table"]
+implemented-by = [{ to = "mcp", versions = ">=2,<3" }]
+
+[[concepts]]
+id = "indirect-prompt-injection"
+term = "indirect prompt injection"
+aliases = ["prompt injection"]
+context = "large-language-models"
+definition = "The threat is indirect prompt injection: text that an application retrieves from outside can carry instructions, and a model that reads that text may follow them."
+section = "output-is-untrusted"
+example = "untrusted-output"
+
+[[concepts]]
+id = "untrusted-output-label"
+term = "untrusted-output label"
+context = "ai-agents"
+definition = "The label says that the text comes from another party, that it is to be read as data, and that it cannot change the stop rules, the allowed commands or an approval, because the harness enforces those whatever the text says."
+section = "output-is-untrusted"
+example = "untrusted-output"
+
+[[concepts]]
+id = "fence"
+term = "fence"
+context = "ai-agents"
+definition = "The fence is an opening tag that names the tool, and a closing tag."
+section = "output-is-untrusted"
+example = "fence-cannot-be-closed"
+
+[[concepts]]
+id = "scenario-test"
+term = "scenario test"
+aliases = ["scenario tests"]
+context = "llm-evaluation"
+definition = "A scenario test asks whether the harness does the right thing with one fixed sequence of replies."
+section = "testing-the-agent"
+example = "scenario-refusal"
+
+[concepts.relations]
+contrasts-with = ["pass-at-1"]
+
+[[concepts]]
+id = "hidden-check"
+term = "hidden check"
+context = "llm-evaluation"
+definition = "The hidden check asks whether a finished run fixed the task."
+section = "testing-the-agent"
+example = "hidden-check-in-copy"
+
+[[concepts]]
+id = "done-fix-task"
+term = "done (fix or implement task)"
+aliases = ["done"]
+context = "llm-evaluation"
+definition = "A fix or an implement task is done when the run ended with `finish`, its hidden check passes on the final copy, and the task's protected paths match the case byte for byte."
+section = "score"
+example = "score-task-set"
+
+[concepts.relations]
+measured-from = ["hidden-check"]
+
+[[concepts]]
+id = "done-stop-task"
+term = "done (stop task)"
+context = "llm-evaluation"
+definition = "A stop task is done when the run ended with `ask_user`, its question contains one of the task's reason words, and no file in the copy differs from the case."
+section = "score"
+example = "score-task-set"
+
+[[concepts]]
+id = "pass-at-1"
+term = "pass@1"
+aliases = ["score"]
+context = "llm-evaluation"
+definition = "The score is pass@1: the number of done tasks, divided by the number of tasks."
+section = "score"
+example = "score-task-set"
+
+[concepts.relations]
+computed-from = ["done-fix-task", "done-stop-task"]
+contrasts-with = ["pass-hat-k"]
+
+[[concepts]]
+id = "pass-hat-k"
+term = "pass^k"
+context = "llm-evaluation"
+definition = "tau-bench defines pass^k as the chance that all k trials of a task succeed, \"averaged across tasks\", and it needs k trials per task."
+section = "score"
+
+[[concepts]]
+id = "standard-error-of-the-proportion"
+term = "standard error of the proportion"
+context = "llm-evaluation"
+definition = "The standard error of the proportion is the square root of a fraction: the proportion times one minus the proportion, divided by the number of tasks."
+section = "how-sure"
+example = "score-task-set"
+
+[concepts.relations]
+computed-from = ["pass-at-1"]
+
+[[concepts]]
+id = "naive-range"
+term = "naive range"
+context = "llm-evaluation"
+definition = "The naive range treats each task as an independent trial, and it is built with the usual multiplier for a 95% interval, which is slightly under two."
+section = "how-sure"
+example = "score-task-set"
+
+[concepts.relations]
+computed-from = ["standard-error-of-the-proportion"]
+
+[[concepts]]
+id = "harness-v1"
+term = "harness v1"
+context = "ai-agents"
+definition = "Harness v1 is the loop of chapter 1 with tool set v1 from chapter 3, a step cap of {{out:compare-v1-v2:task-set step cap}} steps, and no stop rule beyond it."
+section = "v1-v2"
+example = "compare-v1-v2"
+
+[[concepts]]
+id = "harness-v2"
+term = "harness v2"
+context = "ai-agents"
+definition = "Harness v2 is the configuration of chapter 5: it runs tool set v2, with strict argument models, typed error results and edit errors that name the nearest lines of the file."
+section = "v1-v2"
+example = "compare-v1-v2"
+
+[concepts.relations]
+contrasts-with = ["harness-v1"]
+
+[[concepts]]
+id = "trace"
+term = "trace"
+aliases = ["traces"]
+context = "ai-agents"
+definition = "The record of each step is the trace."
+section = "traces-and-cost"
+example = "trace-one-run"
+
+[[concepts]]
+id = "stored-count"
+term = "stored count"
+aliases = ["stored counts"]
+context = "large-language-models"
+definition = "Every count in this chapter is read from a recording or printed by a script, and none is taken from a live model, so the counts are stored counts, and the one check that would re-derive them from the model has not been run."
+section = "traces-and-cost"
+example = "token-counts-from-recording"
+
+[[concepts]]
+id = "token"
+term = "token"
+aliases = ["tokens"]
+context = "large-language-models"
+definition = "a token is a unit of one vocabulary, and the same text can split into different numbers of units under another"
+section = "token-counts"
+example = "token-counts-from-recording"
+
+[concepts.relations]
+prerequisite-of = ["prompt-count", "completion-count"]
+
+[[concepts]]
+id = "prompt-count"
+term = "prompt count"
+aliases = ["prompt tokens", "prompt_tokens"]
+context = "large-language-models"
+definition = "The prompt count is the tokens the model read"
+section = "token-counts"
+example = "token-counts-from-recording"
+
+[[concepts]]
+id = "completion-count"
+term = "completion count"
+aliases = ["completion tokens", "completion_tokens"]
+context = "large-language-models"
+definition = "the completion count is the tokens it wrote"
+section = "token-counts"
+example = "token-counts-from-recording"
+
+[[concepts]]
+id = "cost"
+term = "cost"
+context = "ai-agents"
+definition = "a run's cost is three numbers: its steps, its tool calls and its tokens"
+section = "cost-not-money"
+example = "cost-as-counts"
+
+[concepts.relations]
+computed-from = ["step", "tool-call", "token"]
+
+[[concepts]]
+id = "fixed-pipeline"
+term = "fixed pipeline"
+aliases = ["pipeline"]
+context = "ai-agents"
+definition = "A fixed pipeline is a task's list of steps, written as code before the run starts."
+section = "fixed-pipeline-first"
+example = "fixed-pipeline-same-task"
+
+[concepts.relations]
+contrasts-with = ["agent"]
+
+[[concepts]]
+id = "workflow"
+term = "workflow"
+context = "ai-agents"
+definition = "a workflow when LLMs and tools are orchestrated through predefined code paths"
+section = "fixed-pipeline-first"
+
+[concepts.relations]
+contrasts-with = ["agent"]
+
+[[concepts]]
+id = "agent"
+term = "agent"
+aliases = ["agents"]
+context = "ai-agents"
+definition = "an agent when an LLM dynamically directs its own processes and tool use"
+section = "fixed-pipeline-first"
+
+[[concepts]]
+id = "action"
+term = "action"
+aliases = ["actions"]
+context = "ai-agents"
+definition = "A pipeline has actions, which are its tool calls"
+section = "fixed-pipeline-first"
+example = "fixed-pipeline-same-task"
+
+[concepts.relations]
+contrasts-with = ["step"]
+
+[[concepts]]
+id = "hybrid"
+term = "hybrid"
+context = "ai-agents"
+definition = "The hybrid, a pipeline first and an agent only on a `pipeline_stop`"
+section = "fixed-pipeline-first"
+
+[[concepts]]
+id = "single-model-call"
+term = "single model call"
+context = "ai-agents"
+definition = "A single model call fits a step that needs a model's judgement, with no tool and no loop, and whose output a person reads afterwards."
+section = "which-design"
+example = "decision-table"
+
+[[concepts]]
+id = "decision-table"
+term = "decision table"
+context = "ai-agents"
+definition = "The decision table sorts each task by three readings: whether its steps are known before the run, whether a check can decide the result without a person, and whether a person has to say yes."
+section = "which-design"
+example = "decision-table"
