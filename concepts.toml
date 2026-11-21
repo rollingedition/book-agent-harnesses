@@ -33,6 +33,7 @@ example = "scripted-loop"
 
 [concepts.relations]
 part-of = ["step"]
+same-as = ["https://rollingedition.com/concepts/search-and-recommendation/tool-call"]
 
 [[concepts]]
 id = "malformed-call"
@@ -217,6 +218,9 @@ definition = "Think of a tool's schema as the form the model fills in before it 
 section = "schema-says"
 example = "schema-from-model"
 
+[concepts.relations]
+part-of = ["fixed-part"]
+
 [[concepts]]
 id = "tool-sentence"
 term = "tool sentence"
@@ -278,6 +282,9 @@ definition = "The harness slides a window of the same length as `old` down the f
 section = "edit-errors"
 example = "edit-error-nearest-lines"
 
+[concepts.relations]
+part-of = ["refusal"]
+
 [[concepts]]
 id = "model-adapter"
 term = "model adapter"
@@ -314,6 +321,7 @@ aliases = ["GGUF file"]
 context = "large-language-models"
 definition = "a GGUF file, the single-file format llama.cpp reads"
 section = "local-model"
+wikidata = "Q127427530"
 
 [[concepts]]
 id = "max-tokens"
@@ -606,6 +614,7 @@ context = "large-language-models"
 definition = "The threat is indirect prompt injection: text that an application retrieves from outside can carry instructions, and a model that reads that text may follow them."
 section = "output-is-untrusted"
 example = "untrusted-output"
+agrees = [{ book = "model-context-protocol-in-practice", definition = "Indirect prompt injection is the general name for data that carries instructions: text the application retrieves, here a customer's ticket, contains instructions that the model follows, and those instructions can decide which tools it calls" }]
 
 [[concepts]]
 id = "untrusted-output-label"
@@ -693,6 +702,7 @@ example = "score-task-set"
 
 [concepts.relations]
 computed-from = ["pass-at-1"]
+close-to = ["https://rollingedition.com/concepts/search-and-recommendation/standard-error"]
 
 [[concepts]]
 id = "naive-range"
@@ -732,6 +742,10 @@ context = "ai-agents"
 definition = "The record of each step is the trace."
 section = "traces-and-cost"
 example = "trace-one-run"
+agrees = [{ book = "business-intelligence-with-agents", definition = "The trace is every step of one run, kept by run_agent(): each model reply, and each tool result sent back." }]
+
+[concepts.relations]
+same-as = ["https://rollingedition.com/concepts/search-and-recommendation/trace"]
 
 [[concepts]]
 id = "stored-count"
@@ -750,9 +764,11 @@ context = "large-language-models"
 definition = "a token is a unit of one vocabulary, and the same text can split into different numbers of units under another"
 section = "token-counts"
 example = "token-counts-from-recording"
+agrees = [{ book = "small-open-models", definition = "A token is a piece of text the model reads and writes." }]
 
 [concepts.relations]
 prerequisite-of = ["prompt-count", "completion-count"]
+same-as = ["https://rollingedition.com/concepts/natural-language-processing/token", "https://rollingedition.com/concepts/semantic-search/token"]
 
 [[concepts]]
 id = "prompt-count"
@@ -794,6 +810,7 @@ example = "fixed-pipeline-same-task"
 
 [concepts.relations]
 contrasts-with = ["agent"]
+part-of = ["hybrid"]
 
 [[concepts]]
 id = "workflow"
@@ -812,6 +829,10 @@ aliases = ["agents"]
 context = "ai-agents"
 definition = "an agent when an LLM dynamically directs its own processes and tool use"
 section = "fixed-pipeline-first"
+
+[concepts.relations]
+close-to = ["https://rollingedition.com/concepts/search-and-recommendation/agent"]
+part-of = ["hybrid"]
 
 [[concepts]]
 id = "action"
@@ -839,6 +860,9 @@ context = "ai-agents"
 definition = "A single model call fits a step that needs a model's judgement, with no tool and no loop, and whose output a person reads afterwards."
 section = "which-design"
 example = "decision-table"
+
+[concepts.relations]
+contrasts-with = ["fixed-pipeline"]
 
 [[concepts]]
 id = "decision-table"
