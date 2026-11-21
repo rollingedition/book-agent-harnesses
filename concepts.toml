@@ -33,6 +33,7 @@ example = "scripted-loop"
 
 [concepts.relations]
 part-of = ["step"]
+same-as = ["https://rollingedition.com/concepts/search-and-recommendation/tool-call"]
 
 [[concepts]]
 id = "malformed-call"
@@ -606,6 +607,7 @@ context = "large-language-models"
 definition = "The threat is indirect prompt injection: text that an application retrieves from outside can carry instructions, and a model that reads that text may follow them."
 section = "output-is-untrusted"
 example = "untrusted-output"
+agrees = [{ book = "model-context-protocol-in-practice", definition = "Indirect prompt injection is the general name for data that carries instructions: text the application retrieves, here a customer's ticket, contains instructions that the model follows, and those instructions can decide which tools it calls" }]
 
 [[concepts]]
 id = "untrusted-output-label"
@@ -693,6 +695,7 @@ example = "score-task-set"
 
 [concepts.relations]
 computed-from = ["pass-at-1"]
+close-to = ["https://rollingedition.com/concepts/search-and-recommendation/standard-error"]
 
 [[concepts]]
 id = "naive-range"
@@ -732,6 +735,10 @@ context = "ai-agents"
 definition = "The record of each step is the trace."
 section = "traces-and-cost"
 example = "trace-one-run"
+agrees = [{ book = "business-intelligence-with-agents", definition = "The trace is every step of one run, kept by run_agent(): each model reply, and each tool result sent back." }]
+
+[concepts.relations]
+same-as = ["https://rollingedition.com/concepts/search-and-recommendation/trace"]
 
 [[concepts]]
 id = "stored-count"
@@ -750,9 +757,11 @@ context = "large-language-models"
 definition = "a token is a unit of one vocabulary, and the same text can split into different numbers of units under another"
 section = "token-counts"
 example = "token-counts-from-recording"
+agrees = [{ book = "small-open-models", definition = "A token is a piece of text the model reads and writes." }]
 
 [concepts.relations]
 prerequisite-of = ["prompt-count", "completion-count"]
+same-as = ["https://rollingedition.com/concepts/natural-language-processing/token", "https://rollingedition.com/concepts/semantic-search/token"]
 
 [[concepts]]
 id = "prompt-count"
@@ -812,6 +821,9 @@ aliases = ["agents"]
 context = "ai-agents"
 definition = "an agent when an LLM dynamically directs its own processes and tool use"
 section = "fixed-pipeline-first"
+
+[concepts.relations]
+close-to = ["https://rollingedition.com/concepts/search-and-recommendation/agent"]
 
 [[concepts]]
 id = "action"
