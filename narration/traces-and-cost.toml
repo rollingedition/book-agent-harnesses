@@ -12,6 +12,9 @@ say = "The code adds up the stored token counts for each task in the task set, c
 [examples.cost-as-counts]
 say = "The code groups the task set's stored counts by how each run ended, and prints each group's steps, tool calls and tokens, then the whole set. The line for the step-capped runs reads: {{out:cost-as-counts:ended step_cap}}. The last lines count the step-capped runs that are done, their share of the steps and prompt tokens, and how many have a prompt count that rises at every step."
 
+[examples.figure-tokens-against-steps]
+say = "The code draws each recorded run as one point: its steps along the bottom, its prompt tokens summed over the run up the side, and a marker for how the run ended. The step cap is {{out:figure-tokens-against-steps:step cap, in steps}} steps. The output gives the step-capped runs' share of the steps, {{out:figure-tokens-against-steps:step-capped share of steps}}, and of the prompt tokens, {{out:figure-tokens-against-steps:step-capped share of prompt tokens}}. It also gives the shortest run, {{out:figure-tokens-against-steps:shortest run, task}}, and the longest, {{out:figure-tokens-against-steps:longest run, task}}, with their prompt tokens per step."
+
 [examples.child-trace-under-parent]
 say = "A scripted parent starts a child on T-04. The child's records print under the call that started it, each with the parent's call ID. The gate refuses the child's finish, and the child stops with a question. The output gives the child's run, the call that started it, the held step, the sums of the parent's and the child's tokens, the child's budget, {{out:child-trace-under-parent:child budget}} steps, and the parent's stop, {{out:child-trace-under-parent:parent ended}}."
 

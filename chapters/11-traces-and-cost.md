@@ -90,6 +90,16 @@ None of the step-capped runs is done: the count reads {{out:cost-as-counts:step-
 
 Judgement, not a measurement: the step-capped line is the cost of runs that spent their tokens and did not finish. A token budget on the run's total tokens, not the per-request prompt budget of [chapter 5](#context-budgets), would have stopped those runs sooner. Its price is the chance of stopping a run that would have finished on a later step, and this recording cannot show that chance, because each step-capped run stopped at the cap and wrote no later step. The prompt count is what makes the cost grow: the loop sends the whole transcript again at every step. Counting the step-capped runs whose prompt count rises at every step gives {{out:cost-as-counts:step-capped runs whose prompt count rises at every step}}. A step budget counts steps, so for a long run it says less about the cost than the tokens do. If a token budget is set, the harness should end the run with its own stop reason and its own counts, so that a cut by the budget can be told apart from a cut by the step cap.
 
+{{fig:tokens-against-steps}} draws each recorded run as one point, with its steps along the bottom and its prompt tokens, summed over the run, up the side. The marker shows how the run ended: circles finished, squares asked the person, and triangles hit the step cap. The seven triangles stand in one column at the cap of {{out:figure-tokens-against-steps:step cap, in steps}} steps, and every one of them is higher than any run that ended another way.
+
+![The step-capped runs stand in one column at the step cap, higher than every other run](../examples/figures/tokens-against-steps.svg "Each run's steps against its prompt tokens, marked by how it ended")
+
+[Example: figure-tokens-against-steps](../examples/figure-tokens-against-steps.py)
+
+The prompt per step grows with the steps as well. The shortest run in the set takes {{out:figure-tokens-against-steps:shortest run, steps}} steps and averages {{out:figure-tokens-against-steps:shortest run, prompt tokens per step}} prompt tokens a step. The longest takes {{out:figure-tokens-against-steps:longest run, steps}} steps and averages {{out:figure-tokens-against-steps:longest run, prompt tokens per step}}.
+
+The step-capped runs take {{out:figure-tokens-against-steps:step-capped share of steps}} of all the steps and {{out:figure-tokens-against-steps:step-capped share of prompt tokens}} of all the prompt tokens, so they carry more of the prompt tokens than of the steps.
+
 [Chapter 12](#when-an-agent-is-the-wrong-design) compares an agent with a [fixed pipeline](#fixed-pipeline-first) in these same units, and the units are only useful if every run reports them the same way.
 
 **Working rule:** Report a cost as the steps, tool calls and tokens of each run, grouped by how it ended, with the groups printed beside each other. Quote no money. Read a step-capped group as tokens spent without a finish, and not as evidence about the task until a second measure says otherwise.

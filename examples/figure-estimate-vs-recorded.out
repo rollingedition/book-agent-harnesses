@@ -1,0 +1,13 @@
+estimate rule, characters per token: 3
+task-set steps compared: 220
+task-set steps where the estimate is above the recorded count: 220
+task-set steps where the estimate is below the recorded count: 0
+task-set lowest estimate divided by the recorded count: 1.14
+task-set highest estimate divided by the recorded count: 1.35
+held-out steps compared: 18
+held-out steps where the estimate is above the recorded count: 18
+held-out steps where the estimate is below the recorded count: 0
+held-out lowest estimate divided by the recorded count: 1.22
+held-out highest estimate divided by the recorded count: 1.29
+task-set steps whose estimate is over the prompt budget: 3
+figure: figures/estimate-vs-recorded.svg

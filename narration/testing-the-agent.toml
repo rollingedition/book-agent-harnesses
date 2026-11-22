@@ -27,6 +27,9 @@ say = "Scores the recorded task-set run with the current scorer: how many tasks 
 [examples.compare-v1-v2]
 say = "Prints each task's done flag, how its run ended, steps, tool calls and tokens for the two recordings. Then come the totals, the step cap, the count with and without the path match in one stop task, the tasks where each version takes more or fewer steps, and how each run ended."
 
+[examples.figure-naive-range-coverage]
+say = "For 20 tasks, computes how often the naive 95% range covers the true proportion, at each proportion from 0.05 to 0.95, as an exact binomial sum with the range score-task-set uses. The figure draws that coverage, with the 95% label as a dashed line and the observed proportion as a square. The printed lines give the coverage at the observed proportion, how many grid proportions are under the 95% label, and the lowest and highest coverage on the grid with the proportion where each falls."
+
 [[tables]]
 section = "v1-v2"
 starts = "| Ended as |"

@@ -118,6 +118,16 @@ The count of done tasks carries an error that the bare number does not show. For
 
 At 20 tasks the normal approximation is rough. This range covers less than 95% of the time at a proportion of one quarter, so the 95% is a label, not a guarantee.
 
+{{fig:naive-range-coverage}} draws that coverage for every proportion from 0.05 to 0.95, for 20 tasks and the same range. The dashed line is the 95% label, and the square marks the observed proportion, {{out:figure-naive-range-coverage:observed proportion}}.
+
+![At 20 tasks the naive 95% range covers the true proportion less than 95% of the time at almost every proportion, one quarter included](../examples/figures/naive-range-coverage.svg "How often the naive 95% range covers the true proportion, for 20 tasks")
+
+[Example: figure-naive-range-coverage](../examples/figure-naive-range-coverage.py)
+
+If the true proportion were the observed one, the range would cover {{out:figure-naive-range-coverage:coverage at the observed proportion}} of the time, under the 95% label. Its lowest point on the grid is {{out:figure-naive-range-coverage:lowest coverage on the grid}}, at a proportion of {{out:figure-naive-range-coverage:proportion with the lowest coverage}}, the smallest the grid holds.
+
+It is under the 95% label at {{out:figure-naive-range-coverage:proportions on the grid under the 95% label}} grid proportions. The one exception is a proportion of exactly {{out:figure-naive-range-coverage:proportion with the highest coverage}}, at {{out:figure-naive-range-coverage:highest coverage on the grid}}.
+
 The range is naive in two ways. It assumes the tasks are independent, and it has one run per task, so it carries no clustered error. The tasks share one library, so they may not be independent. Miller's paper on error bars for evals recommends clustered standard errors "when questions are drawn in related groups" ([Miller, 2024](https://arxiv.org/abs/2411.00640)). This chapter computes no clustered error, so the range may be too narrow.
 
 A single run is noisy in its own right. A 2026 study of agent runs on SWE-bench Verified reports that the pass@1 of one run can move by 2.2 to 6.0 points, and that run-to-run standard deviations exceed 1.5 points even at temperature 0 ([Bjarnason and colleagues, 2026](https://arxiv.org/abs/2602.07150)). That study used three open-weights models in two scaffolds, not this harness or this model. The runs here are also at temperature 0, and no task was run twice, so their spread is not measured ([what the score does not say](#score-limits)).
