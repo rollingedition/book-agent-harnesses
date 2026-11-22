@@ -117,13 +117,13 @@ You can check the output yourself. The six endings with the rules on add up to t
 
 {{fig:steps-with-and-without-rules}} draws each of the {{out:figure-steps-with-and-without-rules:runs}} runs as steps: an open circle for the run as recorded, a filled square for the run with both rules, and a line joining the two. A line that runs down is a run the rules shortened, and a square inside a circle, with no line, is a run whose steps did not change. The dashed line is the step cap, at {{out:figure-steps-with-and-without-rules:task set step cap}} steps, and the triangles along the bottom mark the done runs.
 
-![The rules shorten many runs, and the done runs take the same steps with and without them](../examples/figures/steps-with-and-without-rules.svg "Steps each of the 20 runs took, as recorded and with both rules")
+![The rules shorten many runs, and the done runs take the same steps with and without them](../examples/figures/steps-with-and-without-rules.svg "Steps each run took, as recorded and with both rules")
 
 [Example: figure-steps-with-and-without-rules](../examples/figure-steps-with-and-without-rules.py)
 
 The rules save {{out:figure-steps-with-and-without-rules:steps saved in all}} steps, and only the {{out:figure-steps-with-and-without-rules:runs the rules shortened}} runs they shorten change. Most of that saving, {{out:figure-steps-with-and-without-rules:steps saved on the runs that hit the step cap}} steps, is on the runs that reached the step cap without the rules.
 
-The {{out:figure-steps-with-and-without-rules:done runs}} done runs take {{out:figure-steps-with-and-without-rules:steps of the done runs as recorded}} steps either way.
+The {{out:figure-steps-with-and-without-rules:done runs}} done runs take {{out:figure-steps-with-and-without-rules:steps of the done runs as recorded}} steps as recorded and {{out:figure-steps-with-and-without-rules:steps of the done runs with both rules}} with both rules.
 
 **Working rule:** Count each run by the `ended` value it recorded, and report the counts with the rules on and off, next to the done count. A stop can only turn a run into one that is not done, so when you change a rule, check that the done count holds before you keep the change.
 

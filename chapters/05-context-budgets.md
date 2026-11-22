@@ -34,7 +34,7 @@ On those counts, no recorded step reached the [prompt budget](#window). Of the {
 
 {{fig:prompt-per-step}} draws the prompt count at each step for every recorded run, with the prompt budget as a dashed line. The prompt rises at every step in {{out:figure-prompt-per-step:runs whose prompt rises at every step}} of the {{out:figure-prompt-per-step:runs drawn}} runs, because each step carries every step before it.
 
-The line with dots is {{out:figure-prompt-per-step:largest prompt, run}}, the run with the largest prompt. It climbs to {{out:figure-prompt-per-step:largest prompt, in tokens}} tokens and stays under the dashed line. The thinner lines are the other runs.
+The line with dots is {{out:figure-prompt-per-step:largest prompt, run}}, the run with the largest prompt. It climbs to {{out:figure-prompt-per-step:largest prompt, in tokens}} tokens and stays under the dashed line, the budget of {{out:figure-prompt-per-step:prompt budget, in tokens}}. The thinner lines are the other runs.
 
 ![The prompt climbs at every step of every recorded run, and the largest one stops short of the budget line](../examples/figures/prompt-per-step.svg "The prompt at each step of the recorded runs, against the prompt budget")
 

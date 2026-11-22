@@ -118,13 +118,13 @@ The count of done tasks carries an error that the bare number does not show. For
 
 At 20 tasks the normal approximation is rough. This range covers less than 95% of the time at a proportion of one quarter, so the 95% is a label, not a guarantee.
 
-{{fig:naive-range-coverage}} draws that coverage for every proportion from 0.05 to 0.95, for 20 tasks and the same range. The dashed line is the 95% label, and the square marks the observed proportion, {{out:figure-naive-range-coverage:observed proportion}}.
+{{fig:naive-range-coverage}} draws that coverage at each proportion from {{out:figure-naive-range-coverage:grid}}, for {{out:figure-naive-range-coverage:tasks}} tasks and the same range. The dashed line is the 95% label, and the square marks the observed proportion, {{out:figure-naive-range-coverage:observed proportion}}.
 
-![At 20 tasks the naive 95% range covers the true proportion less than 95% of the time at almost every proportion, one quarter included](../examples/figures/naive-range-coverage.svg "How often the naive 95% range covers the true proportion, for 20 tasks")
+![At 20 tasks the naive 95% range covers the true proportion less than 95% of the time at almost every proportion, one quarter included](../examples/figures/naive-range-coverage.svg "How often the naive 95% range covers the true proportion, at the task set's size")
 
 [Example: figure-naive-range-coverage](../examples/figure-naive-range-coverage.py)
 
-If the true proportion were the observed one, the range would cover {{out:figure-naive-range-coverage:coverage at the observed proportion}} of the time, under the 95% label. Its lowest point on the grid is {{out:figure-naive-range-coverage:lowest coverage on the grid}}, at a proportion of {{out:figure-naive-range-coverage:proportion with the lowest coverage}}, the smallest the grid holds.
+If the true proportion were the observed one, the range would cover {{out:figure-naive-range-coverage:coverage at the observed proportion}} of the time, under the 95% label. It is lowest at the two ends of the grid, {{out:figure-naive-range-coverage:proportions with the lowest coverage}}, at {{out:figure-naive-range-coverage:lowest coverage on the grid}} each.
 
 It is under the 95% label at {{out:figure-naive-range-coverage:proportions on the grid under the 95% label}} grid proportions. The one exception is a proportion of exactly {{out:figure-naive-range-coverage:proportion with the highest coverage}}, at {{out:figure-naive-range-coverage:highest coverage on the grid}}.
 

@@ -200,7 +200,7 @@ L 457.79976 6.799068
      </g>
     </g>
     <g id="text_12">
-     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1b1712" x="10.598678" y="87.199023" transform="rotate(-90 10.598678 87.199023)">share of samples covered</text>
+     <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1b1712" x="10.598678" y="87.199023" transform="rotate(-90 10.598678 87.199023)">how often the range covers it</text>
     </g>
    </g>
    <g id="line2d_21">
@@ -406,7 +406,7 @@ z
    <g id="line2d_22">
     <path d="M 39.904146 14.839064 
 L 457.79976 14.839064 
-" clip-path="url(#p6d0ac7b42f)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #61574a; stroke-width: 1.2"/>
+" clip-path="url(#p6d0ac7b42f)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #1b1712; stroke-width: 1.2"/>
    </g>
    <g id="line2d_23">
     <defs>
@@ -448,7 +448,7 @@ L 169.249609 122.695072
      <path d="M 149.249609 137.695854 
 L 159.249609 137.695854 
 L 169.249609 137.695854 
-" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #61574a; stroke-width: 1.2"/>
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #1b1712; stroke-width: 1.2"/>
     </g>
     <g id="text_14">
      <text style="font-size: 10px; font-family: 'IBM Plex Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1b1712" x="177.249609" y="141.195854" transform="rotate(-0 177.249609 141.195854)">the 95% label</text>
