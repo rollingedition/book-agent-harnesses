@@ -7,7 +7,7 @@ id = "agent-harness"
 term = "agent harness"
 aliases = ["harness"]
 context = "ai-agents"
-definition = "The harness supplies the loop, the tools and the limits on what those tools may do"
+definition = "The harness supplies the loop, the context, the tools and the limits on what those tools may do"
 section = "tools-and-a-loop"
 
 [[concepts]]
@@ -93,7 +93,7 @@ example = "stop-rules-over-task-set"
 id = "task-set"
 term = "task set"
 context = "llm-evaluation"
-definition = "the task set: the 20 tasks that testing the agent scores, run with tool set v1, whose tools include edits"
+definition = "the task set: the 20 tasks that testing the agent scores, first recorded with tool set v1, whose tools include edits"
 section = "stop-rules"
 example = "stop-rules-over-task-set"
 
@@ -269,7 +269,7 @@ id = "edit"
 term = "edit"
 aliases = ["edits"]
 context = "ai-agents"
-definition = "An edit names the text it replaces."
+definition = "An edit names the text it replaces and the text that replaces it."
 section = "edit-errors"
 example = "edit-error-nearest-lines"
 
@@ -278,7 +278,7 @@ id = "nearest-lines"
 term = "nearest lines"
 aliases = ["nearest-line errors"]
 context = "ai-agents"
-definition = "The harness slides a window of the same length as `old` down the file, keeps the window that matches best, and breaks a tie toward the earlier window, so the answer is the same on every run."
+definition = "The harness slides a window of as many lines as `old` down the file, keeps the window that matches best, and breaks a tie toward the earlier window, so the answer is the same on every run."
 section = "edit-errors"
 example = "edit-error-nearest-lines"
 
@@ -299,7 +299,7 @@ id = "finish-reason"
 term = "finish reason"
 aliases = ["finish_reason"]
 context = "large-language-models"
-definition = "the finish reason, which says whether the model stopped on its own or ran out of tokens"
+definition = "the finish reason, which says why the model stopped, such as on its own or because it ran out of tokens"
 section = "model-protocol"
 example = "openai-compatible-loopback"
 
@@ -307,7 +307,7 @@ example = "openai-compatible-loopback"
 id = "request-hash"
 term = "request hash"
 context = "ai-agents"
-definition = "`ReplayModel` hashes the request it was given, the sha256 of its messages and tool schemas in canonical JSON"
+definition = "`ReplayModel` hashes the request it was given, the sha256 of its messages and tool schemas as JSON with sorted keys, no spaces and ASCII escapes"
 section = "scripted-and-replayed"
 example = "replay-byte-for-byte"
 
@@ -453,7 +453,7 @@ part-of = ["proposal"]
 id = "proposal-hash"
 term = "proposal hash"
 context = "ai-agents"
-definition = "The proposal's identity is a hash of the changed bytes"
+definition = "The proposal's identity is a hash of each changed file's path and its old and new bytes"
 section = "gate-in-finish"
 example = "answer-binds-bytes"
 
@@ -464,12 +464,23 @@ part-of = ["proposal"]
 id = "never-class"
 term = "never class"
 context = "ai-agents"
-definition = "The table in `lib/permissions.py` is the only source of a tool's class, and a tool outside it is classed `never`."
+definition = "The class tables the harness owns, the one in `lib/permissions.py` and any table the harness passes to the gate, are the only source of a tool's class, and a tool outside them is classed `never`."
 section = "wrapper"
 example = "unknown-tool-refused"
 
 [concepts.relations]
 broader = ["tool-class"]
+
+[[concepts]]
+id = "held-as-never"
+term = "held as never"
+context = "ai-agents"
+definition = "a change that has a reason is held as never: the gate refuses it before any question is asked"
+section = "never-class"
+example = "never-class-refused"
+
+[concepts.relations]
+contrasts-with = ["never-class"]
 
 [[concepts]]
 id = "allow-list"
@@ -588,7 +599,7 @@ example = "namespace-clash"
 id = "tool-class"
 term = "tool class"
 context = "ai-agents"
-definition = "Chapter 6 divided the harness's tools into classes: a read runs, and a change waits."
+definition = "Chapter 6 divided the harness's tools into classes: a read runs, a change runs in the copy, a proposal waits for a yes, and a tool with no class never runs."
 section = "other-tools"
 example = "annotation-is-a-hint"
 
@@ -727,7 +738,7 @@ example = "compare-v1-v2"
 id = "harness-v2"
 term = "harness v2"
 context = "ai-agents"
-definition = "Harness v2 is the configuration of chapter 5: it runs tool set v2, with strict argument models, typed error results and edit errors that name the nearest lines of the file."
+definition = "Harness v2 is the configuration of chapter 5: it runs tool set v2's tools, with strict argument models, typed error results and edit errors that name the nearest lines of the file, plus a `note` tool, the two stop rules from chapter 2 and compaction under the context budget, with chapter 5's system prompt."
 section = "v1-v2"
 example = "compare-v1-v2"
 
@@ -868,6 +879,6 @@ contrasts-with = ["fixed-pipeline"]
 id = "decision-table"
 term = "decision table"
 context = "ai-agents"
-definition = "The decision table sorts each task by three readings: whether its steps are known before the run, whether a check can decide the result without a person, and whether a person has to say yes."
+definition = "The decision table sorts each task by whether the harness refuses the change outright, then by three readings: whether its steps are known before the run, whether a check can decide the result without a person, and whether a person has to say yes."
 section = "which-design"
 example = "decision-table"

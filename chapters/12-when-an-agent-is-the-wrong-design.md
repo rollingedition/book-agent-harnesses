@@ -70,7 +70,7 @@ The stop check is weaker. A stop task is scored from the question the agent wrot
 
 ## The decision table {#which-design}
 
-The decision table sorts each task by three readings: whether its steps are known before the run, whether a check can decide the result without a person, and whether a person has to say yes. A fourth matter comes before all three, which is whether the harness refuses the change outright. The readings are the author's judgement of each task, not measurements, and the rules are rules of thumb. Each row sits beside the recorded end of that task's run, and no model is called.
+The decision table sorts each task by whether the harness refuses the change outright, then by three readings: whether its steps are known before the run, whether a check can decide the result without a person, and whether a person has to say yes. The readings are the author's judgement of each task, not measurements, and the rules are rules of thumb. Each row sits beside the recorded end of that task's run, and no model is called.
 
 The rules run in one order, and the order is the point. First, a change the harness forbids is not a design question. Chapter 6's gate refuses any change under `.github/`, and it refuses a rename that removes a public name, because no yes can lift a rule of that kind ([never-class changes](#never-class)). Second, a person's yes means an agent behind a gate, because the gate must ask before it applies a change. Third, known steps mean a pipeline when a check decides the result, and one model call when no check does. Open steps mean an agent. The order matters for T-16, which the second rule alone would send to a gate, and which the first rule refuses.
 

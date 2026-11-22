@@ -118,6 +118,16 @@ The count of done tasks carries an error that the bare number does not show. For
 
 At 20 tasks the normal approximation is rough. This range covers less than 95% of the time at a proportion of one quarter, so the 95% is a label, not a guarantee.
 
+{{fig:naive-range-coverage}} draws that coverage at each proportion from {{out:figure-naive-range-coverage:grid}}, for {{out:figure-naive-range-coverage:tasks}} tasks and the same range. The dashed line is the 95% label, and the square marks the observed proportion, {{out:figure-naive-range-coverage:observed proportion}}.
+
+![At 20 tasks the naive 95% range covers the true proportion less than 95% of the time at almost every proportion, one quarter included](../examples/figures/naive-range-coverage.svg "How often the naive 95% range covers the true proportion, at the task set's size")
+
+[Example: figure-naive-range-coverage](../examples/figure-naive-range-coverage.py)
+
+If the true proportion were the observed one, the range would cover {{out:figure-naive-range-coverage:coverage at the observed proportion}} of the time, under the 95% label. It is lowest at the two ends of the grid, {{out:figure-naive-range-coverage:proportions with the lowest coverage}}, at {{out:figure-naive-range-coverage:lowest coverage on the grid}} each.
+
+It is under the 95% label at {{out:figure-naive-range-coverage:proportions on the grid under the 95% label}} grid proportions. The one exception is a proportion of exactly {{out:figure-naive-range-coverage:proportion with the highest coverage}}, at {{out:figure-naive-range-coverage:highest coverage on the grid}}.
+
 The range is naive in two ways. It assumes the tasks are independent, and it has one run per task, so it carries no clustered error. The tasks share one library, so they may not be independent. Miller's paper on error bars for evals recommends clustered standard errors "when questions are drawn in related groups" ([Miller, 2024](https://arxiv.org/abs/2411.00640)). This chapter computes no clustered error, so the range may be too narrow.
 
 A single run is noisy in its own right. A 2026 study of agent runs on SWE-bench Verified reports that the pass@1 of one run can move by 2.2 to 6.0 points, and that run-to-run standard deviations exceed 1.5 points even at temperature 0 ([Bjarnason and colleagues, 2026](https://arxiv.org/abs/2602.07150)). That study used three open-weights models in two scaffolds, not this harness or this model. The runs here are also at temperature 0, and no task was run twice, so their spread is not measured ([what the score does not say](#score-limits)).
@@ -126,7 +136,7 @@ A single run is noisy in its own right. A 2026 study of agent runs on SWE-bench 
 
 ## Two harness versions, compared as counts {#v1-v2}
 
-Two harness versions run on the same tasks give two counts, and counts alone cannot say which harness is better. Harness v1 is the loop of [chapter 1](#tools-and-a-loop) with tool set v1 from [chapter 3](#tool-schemas), a step cap of {{out:compare-v1-v2:task-set step cap}} steps, and no stop rule beyond it. In harness v1, a run that keeps going without a finish or a question ends only at the cap. Harness v2 is the configuration of [chapter 5](#context-budgets): it runs tool set v2, with strict argument models, typed error results and edit errors that name the nearest lines of the file. It adds a `note` tool, two stop rules from [chapter 2](#stop-rules), and compaction under the context budget. Its step cap is {{out:compare-v1-v2:task-set-v2 step cap}} too. Both harnesses use the same hidden checks.
+Two harness versions run on the same tasks give two counts, and counts alone cannot say which harness is better. Harness v1 is the loop of [chapter 1](#tools-and-a-loop) with tool set v1 from [chapter 3](#tool-schemas), a step cap of {{out:compare-v1-v2:task-set step cap}} steps, and no stop rule beyond it. In harness v1, a run that keeps going without a finish or a question ends only at the cap. Harness v2 is the configuration of [chapter 5](#context-budgets): it runs tool set v2's tools, with strict argument models, typed error results and edit errors that name the nearest lines of the file, plus a `note` tool, the two stop rules from [chapter 2](#stop-rules) and compaction under the context budget, with chapter 5's system prompt. Its step cap is {{out:compare-v1-v2:task-set-v2 step cap}} too. Both harnesses use the same hidden checks.
 
 Printed side by side, each task's done flag, ending, steps, tool calls and tokens for both recordings show where the two harnesses part ways. Totals and endings follow the per-task lines. The script also asserts that both recordings use the same hidden check for every task, so a difference in the counts cannot come from a difference in the checks.
 

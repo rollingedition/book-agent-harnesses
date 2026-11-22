@@ -18,6 +18,9 @@ say = "The code runs a scripted task in which three notes are written after thre
 [examples.recorded-context-use]
 say = "The code replays the three recorded runs with compaction on. For each run it prints its kind, how it ended, whether its check passed, and how many steps and note calls it made. Then it prints the totals: {{out:recorded-context-use:total note calls}} note calls, {{out:recorded-context-use:total compactions}} compactions, and {{out:recorded-context-use:runs whose check passed}} runs whose check passed."
 
+[examples.figure-prompt-per-step]
+say = "The code reads the prompt count of every recorded step and draws each run's counts against the prompt budget, which is the dashed line. The line with dots is the run with the largest prompt. It prints the budget, the number of runs and how many of them rise at every step, and the largest prompt with its run and step."
+
 [terms]
 "arXiv:2611.24357v1" = "archive, two six one one, dot two four three five seven, version one"
 "DeepSeek" = "Deep Seek"

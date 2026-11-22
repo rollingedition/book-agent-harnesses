@@ -15,6 +15,9 @@ say = "The code replays task T-01 twice: first with no rules, then with the no-p
 [examples.stop-rules-over-task-set]
 say = "The code runs all twenty tasks of the task set from its recording, twice: once as recorded, and once with both stop rules. It prints counts only. The task set's step budget is {{out:stop-rules-over-task-set:task set step cap}} steps. The set has {{out:stop-rules-over-task-set:runs}} runs. Without the rules, the budget ends {{out:stop-rules-over-task-set:step cap without the rules}} of them, on {{out:stop-rules-over-task-set:step cap without the rules, tasks}}. With the rules on, {{out:stop-rules-over-task-set:step cap with the rules}} run still reaches the budget, and {{out:stop-rules-over-task-set:ended early with the rules}} of the others end earlier. Of the runs with the rules, {{out:stop-rules-over-task-set:no_progress}} end as no progress and {{out:stop-rules-over-task-set:finish}} end with finish. Of the {{out:stop-rules-over-task-set:done with the rules}} done runs, {{out:stop-rules-over-task-set:done with the rules, by finish}} end with finish and pass their check, and {{out:stop-rules-over-task-set:done with the rules, by ask_user}} end with a correct ask user. The done runs are the same tasks as without the rules."
 
+[examples.figure-steps-with-and-without-rules]
+say = "The code replays every run of the task set twice, as recorded and with both stop rules, and counts the steps each run took. It prints the step cap, how many runs the rules shortened, the steps saved in all, the steps saved on the runs that hit the step cap, and the done runs' steps both ways. It checks that the done runs take the same steps, and that no rule lengthens a run."
+
 [[tables]]
 section = "ways-to-end"
 starts = "| `ended` |"

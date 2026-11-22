@@ -32,6 +32,14 @@ The recording stores the [prompt count](#token-counts) the model reported for ev
 
 On those counts, no recorded step reached the [prompt budget](#window). Of the {{out:budget-counts-tokens:steps recorded}} recorded steps, {{out:budget-counts-tokens:steps over the prompt budget}} went over it. The largest was T-16's last step, and it left {{out:budget-counts-tokens:room left for the reply at the largest step}} tokens of the window spare once the reply's room was set aside. The check reads the recording and loads no model, so anyone can run it without the hardware that made the recording. The same check, run on any new recording, shows at once whether its prompts still fit the budget, which makes it the first thing to rerun after a model change.
 
+{{fig:prompt-per-step}} draws the prompt count at each step for every recorded run, with the prompt budget as a dashed line. The prompt rises at every step in {{out:figure-prompt-per-step:runs whose prompt rises at every step}} of the {{out:figure-prompt-per-step:runs drawn}} runs, because each step carries every step before it.
+
+The line with dots is {{out:figure-prompt-per-step:largest prompt, run}}, the run with the largest prompt. It climbs to {{out:figure-prompt-per-step:largest prompt, in tokens}} tokens and stays under the dashed line, the budget of {{out:figure-prompt-per-step:prompt budget, in tokens}}. The thinner lines are the other runs.
+
+![The prompt climbs at every step of every recorded run, and the largest one stops short of the budget line](../examples/figures/prompt-per-step.svg "The prompt at each step of the recorded runs, against the prompt budget")
+
+[Example: figure-prompt-per-step](../examples/figure-prompt-per-step.py)
+
 That result says less than it seems. The recorded task set ran tool set v1 with nothing between the loop and the model that could shorten or refuse a prompt. Nothing compacted, and no step was ever cut to fit. The counts show that these prompts fit. They do not show what the harness does when a prompt does not fit, and the rest of this chapter is about that case.
 
 **Working rule:** Compare every step's count with the prompt budget before you read anything into a run.
