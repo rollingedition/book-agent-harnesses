@@ -113,17 +113,17 @@ Each done task still passes with the rules on, and the example checks it. Of the
 
 Without the rules, {{out:stop-rules-over-task-set:ask_user but not done, without the rules}} runs asked a question and were not done. With the rules, {{out:stop-rules-over-task-set:of those, cut early with the rules}} of those runs ended earlier, and none of them asked. The one `ask_user` left with the rules on is T-18's, which the scorer counts as done; [chapter 10](#t18-path) shows that it counts only through a word in a path. A stop that ends a run early doesn't make the run right. It ends the run before the wrong question is asked, and that run is still not done. The rules cut the waste; they can't tell a right question from a wrong one.
 
-{{fig:steps-with-and-without-rules}} draws each of the 20 runs as steps: an open circle for the run as recorded, a filled square for the run with both rules, and a line joining the two. A line that runs down is a run the rules shortened, and a single point is a run whose steps did not change. The dashed line is the step cap, at {{out:figure-steps-with-and-without-rules:task set step cap}} steps, and the triangles on the bottom row mark the done runs.
+You can check the output yourself. The six endings with the rules on add up to the number of runs, as the lines of the output show, and the done count is the same with the rules and without them. If the done count ever moves, a rule has cut a run that was going to pass, and the rule is the thing to change. If a run in your own work ends stuck, read it in this order: the `ended` value, then the last few steps, then the first step where a call began to repeat. Those reads take less time than reading the whole transcript.
+
+{{fig:steps-with-and-without-rules}} draws each of the {{out:figure-steps-with-and-without-rules:runs}} runs as steps: an open circle for the run as recorded, a filled square for the run with both rules, and a line joining the two. A line that runs down is a run the rules shortened, and a square inside a circle, with no line, is a run whose steps did not change. The dashed line is the step cap, at {{out:figure-steps-with-and-without-rules:task set step cap}} steps, and the triangles along the bottom mark the done runs.
 
 ![The rules shorten many runs, and the done runs take the same steps with and without them](../examples/figures/steps-with-and-without-rules.svg "Steps each of the 20 runs took, as recorded and with both rules")
 
 [Example: figure-steps-with-and-without-rules](../examples/figure-steps-with-and-without-rules.py)
 
-The point to keep is that the rules shorten stuck runs and leave the done runs alone. They shorten {{out:figure-steps-with-and-without-rules:runs the rules shortened}} of the {{out:figure-steps-with-and-without-rules:runs}} runs and save {{out:figure-steps-with-and-without-rules:steps saved in all}} steps in all.
+The rules save {{out:figure-steps-with-and-without-rules:steps saved in all}} steps, and only the {{out:figure-steps-with-and-without-rules:runs the rules shortened}} runs they shorten change. Most of that saving, {{out:figure-steps-with-and-without-rules:steps saved on the runs that hit the step cap}} steps, is on the runs that reached the step cap without the rules.
 
-The {{out:figure-steps-with-and-without-rules:done runs}} done runs take {{out:figure-steps-with-and-without-rules:steps of the done runs as recorded}} steps as recorded and the same number with both rules, so the rules change no done run.
-
-You can check the output yourself. The six endings with the rules on add up to the number of runs, as the lines of the output show, and the done count is the same with the rules and without them. If the done count ever moves, a rule has cut a run that was going to pass, and the rule is the thing to change. If a run in your own work ends stuck, read it in this order: the `ended` value, then the last few steps, then the first step where a call began to repeat. Those reads take less time than reading the whole transcript.
+The {{out:figure-steps-with-and-without-rules:done runs}} done runs take {{out:figure-steps-with-and-without-rules:steps of the done runs as recorded}} steps either way.
 
 **Working rule:** Count each run by the `ended` value it recorded, and report the counts with the rules on and off, next to the done count. A stop can only turn a run into one that is not done, so when you change a rule, check that the done count holds before you keep the change.
 
