@@ -18,6 +18,13 @@ for step in sorted(steps, key=lambda s: (s["run"], s["step"])):
 largest = max(steps, key=lambda s: (s["prompt_tokens"], s["run"], s["step"]))
 # each step carries the whole history, so a run's prompt should grow at every step
 rising = sum(all(b > a for a, b in zip(counts, counts[1:])) for counts in runs.values())
+cap = max(len(counts) for counts in runs.values())  # the x axis runs to the longest run in the recording
+print("prompt budget, in tokens:", PROMPT_BUDGET)
+print("runs drawn:", len(runs))
+print("runs whose prompt rises at every step:", rising)
+print("largest prompt, in tokens:", largest["prompt_tokens"])
+print("largest prompt, run:", largest["run"])
+print("largest prompt, step:", largest["step"])
 
 fig, ax = new_figure(height=3.2)
 others = [run for run in runs if run != largest["run"]]
@@ -29,15 +36,9 @@ ax.plot(range(1, len(runs[largest["run"]]) + 1), runs[largest["run"]], color=ACC
 ax.axhline(PROMPT_BUDGET, color=INK, linestyle="--", linewidth=1.2, label=f"prompt budget, {PROMPT_BUDGET} tokens")
 ax.set_xlabel("step of the run, counting from 1")
 ax.set_ylabel("prompt, in tokens")
-ax.set_xlim(0.5, 16.5)
-ax.set_xticks(range(1, 17, 3))
+ax.set_xlim(0.5, cap + 0.5)
+ax.set_xticks(range(1, cap + 1, 3))
 ax.set_ylim(0, WINDOW)
 ax.legend(frameon=False, loc="lower right")
 save(fig, "prompt-per-step")
 
-print("prompt budget, in tokens:", PROMPT_BUDGET)
-print("runs drawn:", len(runs))
-print("runs whose prompt rises at every step:", rising)
-print("largest prompt, in tokens:", largest["prompt_tokens"])
-print("largest prompt, run:", largest["run"])
-print("largest prompt, step:", largest["step"])

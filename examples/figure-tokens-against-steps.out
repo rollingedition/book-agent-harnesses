@@ -1,11 +1,9 @@
-figure: figures/tokens-against-steps.svg
 runs drawn: 20
+step-capped runs: 7
 step cap, in steps: 16
+mean first-step prompt, in tokens: 1044
 step-capped share of steps: 50.9%
 step-capped share of prompt tokens: 58.6%
-shortest run, task: T-18
-shortest run, steps: 4
-shortest run, prompt tokens per step: 1280
-longest run, task: T-16
-longest run, steps: 16
-longest run, prompt tokens per step: 3606
+prompt tokens per step, step-capped runs: 2998
+prompt tokens per step, other runs: 2192
+figure: figures/tokens-against-steps.svg

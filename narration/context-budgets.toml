@@ -19,10 +19,7 @@ say = "The code runs a scripted task in which three notes are written after thre
 say = "The code replays the three recorded runs with compaction on. For each run it prints its kind, how it ended, whether its check passed, and how many steps and note calls it made. Then it prints the totals: {{out:recorded-context-use:total note calls}} note calls, {{out:recorded-context-use:total compactions}} compactions, and {{out:recorded-context-use:runs whose check passed}} runs whose check passed."
 
 [examples.figure-prompt-per-step]
-say = "The code reads the prompt count of every recorded step and draws each run's counts against the prompt budget, which is the dashed line. The accent line is the run with the largest prompt. It prints the budget, the number of runs and how many of them rise at every step, and the largest prompt with its run and step."
-
-[examples.figure-estimate-vs-recorded]
-say = "The code replays the recorded steps and draws each step's estimate at three characters per token against the count the model reported for it, with a dotted line where the two are equal. Task-set steps are dots and held-out steps are crosses. It prints how many steps the estimate is over the count, how many it is under, the lowest and highest ratios, and how many task-set estimates pass the budget."
+say = "The code reads the prompt count of every recorded step and draws each run's counts against the prompt budget, which is the dashed line. The line with dots is the run with the largest prompt. It prints the budget, the number of runs and how many of them rise at every step, and the largest prompt with its run and step."
 
 [terms]
 "arXiv:2611.24357v1" = "archive, two six one one, dot two four three five seven, version one"

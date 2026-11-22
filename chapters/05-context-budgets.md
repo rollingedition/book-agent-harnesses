@@ -34,7 +34,7 @@ On those counts, no recorded step reached the [prompt budget](#window). Of the {
 
 {{fig:prompt-per-step}} draws the prompt count at each step for every recorded run, with the prompt budget as a dashed line. The prompt rises at every step in {{out:figure-prompt-per-step:runs whose prompt rises at every step}} of the {{out:figure-prompt-per-step:runs drawn}} runs, because each step carries every step before it.
 
-The accent line is T-16, the run with the largest prompt. It ends at step {{out:figure-prompt-per-step:largest prompt, step}} at {{out:figure-prompt-per-step:largest prompt, in tokens}} tokens, and it stops short of the dashed line. The thinner lines are the other runs.
+The line with dots is {{out:figure-prompt-per-step:largest prompt, run}}, the run with the largest prompt. It climbs to {{out:figure-prompt-per-step:largest prompt, in tokens}} tokens and stays under the dashed line. The thinner lines are the other runs.
 
 ![The prompt climbs at every step of every recorded run, and the largest one stops short of the budget line](../examples/figures/prompt-per-step.svg "The prompt at each step of the recorded runs, against the prompt budget")
 
@@ -59,14 +59,6 @@ The estimate was above the recorded count on every one of the {{out:estimate-vs-
 The price of the safe side is visible too. Three steps had an estimate over the [prompt budget](#window), and on all three the model's own count was within it. A harness that trusted the estimate would have compacted those steps for no reason.
 
 The rule was chosen on the task-set steps, so those steps cannot test it. The held-out check is the chapter-5-notes recording. It was made after the rule was fixed, and its counts were not used to choose it. Its {{out:estimate-vs-recorded:held-out steps compared}} steps show the same pattern: none under the count, with ratios from {{out:estimate-vs-recorded:held-out lowest estimate divided by the recorded count}} to {{out:estimate-vs-recorded:held-out highest estimate divided by the recorded count}}, and {{out:estimate-vs-recorded:held-out characters per token, recorded (all steps)}} characters per token. It is the same model and similar text, so it does not show the rule holds for another tokenizer, another language, or code full of symbols.
-
-{{fig:estimate-vs-recorded}} puts each step's estimate against the count the model reported for that step. The dotted line is where the two are equal, the task-set steps are the round dots, and the held-out steps are the crosses. Every estimate is over its count: {{out:figure-estimate-vs-recorded:task-set steps where the estimate is above the recorded count}} of the {{out:figure-estimate-vs-recorded:task-set steps compared}} task-set steps and {{out:figure-estimate-vs-recorded:held-out steps where the estimate is above the recorded count}} of the {{out:figure-estimate-vs-recorded:held-out steps compared}} held-out steps, and none is under.
-
-The lowest ratio of estimate to count on the task-set steps is {{out:figure-estimate-vs-recorded:task-set lowest estimate divided by the recorded count}}. The dashed line is the prompt budget, and {{out:figure-estimate-vs-recorded:task-set steps whose estimate is over the prompt budget}} task-set steps have an estimate over it. A harness that compared the estimate with the budget would compact those steps.
-
-![Every step's estimate sits over its recorded count, and a few task-set estimates pass the budget line](../examples/figures/estimate-vs-recorded.svg "Each step's estimate against the count the model reported for it")
-
-[Example: figure-estimate-vs-recorded](../examples/figure-estimate-vs-recorded.py)
 
 **Working rule:** Estimate with three characters per token, and check the estimate against the counts the model reports on the first runs of any new model. If the estimate ever falls under the reported count, use a smaller number of characters per token before you trust the budget.
 

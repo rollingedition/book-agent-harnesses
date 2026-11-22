@@ -1,44 +1,50 @@
 """Each recorded run as one point: its steps against its prompt tokens, summed over the run, marked by how it ended.
-The point rests on the step-capped runs sitting in one column at the cap, above every other run, and on the prompt
-tokens per step, which grow with the steps."""
+The point rests on the step-capped runs sitting in one column at the cap, above every other run, and on the dashed
+line for steps alone: every run's prompt total sits above it, because each step's prompt carries the steps before it."""
 from lib.figures import ACCENT, INK, MUTED, new_figure, save
 from lib.models import load_recording
 
-manifest, _ = load_recording("task-set")
+manifest, rows = load_recording("task-set")
 tasks = sorted(manifest["tasks"], key=lambda t: (t["steps"], t["task"]))  # ties in steps are broken by task ID
 cap = manifest["step_cap"]
 capped = [t for t in tasks if t["ended"] == "step_cap"]
+others = [t for t in tasks if t["ended"] != "step_cap"]
 assert all(t["steps"] == cap for t in capped), "a step-capped run stops at the cap"
-assert min(t["prompt_tokens"] for t in capped) > max(t["prompt_tokens"] for t in tasks if t not in capped)
+assert min(t["prompt_tokens"] for t in capped) > max(t["prompt_tokens"] for t in others)
+first_steps = [r["prompt_tokens"] for r in rows if r["step"] == 1]
+assert len(first_steps) == len(tasks), "one first step per run"
+first = sum(first_steps) / len(tasks)  # the mean first-step prompt, in tokens
+assert all(t["prompt_tokens"] > t["steps"] * first for t in tasks), "every run sits above steps times the first prompt"
 
 
 def share(key):  # the step-capped runs' part of the whole set, in per cent
     return 100 * sum(t[key] for t in capped) / sum(t[key] for t in tasks)
 
 
-shortest = tasks[0]
-longest = max(tasks, key=lambda t: (t["steps"], t["prompt_tokens"]))  # the most steps, then the larger prompt total
+def per_step(group):  # prompt tokens a step, over a group of runs
+    return sum(t["prompt_tokens"] for t in group) // sum(t["steps"] for t in group)
+
 
 fig, ax = new_figure(height=3.2)
 for ending, color, marker in (("finish", INK, "o"), ("ask_user", MUTED, "s"), ("step_cap", ACCENT, "^")):
-    group = [t for t in tasks if t["ended"] == ending]
-    ax.scatter([t["steps"] for t in group], [t["prompt_tokens"] for t in group], color=color, marker=marker, s=24,
-               label=f"ended with {ending}, {len(group)} runs")
+    group = [t for t in tasks if t["ended"] == ending]  # hollow, so two runs at one spot show as two rings
+    ax.scatter([t["steps"] for t in group], [t["prompt_tokens"] for t in group], facecolors="none", edgecolors=color,
+               marker=marker, s=30, linewidths=1.2, label=f"ended with {ending}, {len(group)} runs")
+ax.plot([4, 16], [4 * first, 16 * first], color=INK, linestyle="--", linewidth=1.0,
+        label="every step at the first step's prompt")
 ax.set_xlabel("steps the run took")
 ax.set_ylabel("prompt tokens, summed over its steps")
 ax.set_xlim(3, 17)
 ax.set_xticks(range(4, 17, 2))
 ax.set_ylim(0, 65000)
 ax.legend(frameon=False, loc="upper left")
-save(fig, "tokens-against-steps")
 
 print(f"runs drawn: {len(tasks)}")
+print(f"step-capped runs: {len(capped)}")
 print(f"step cap, in steps: {cap}")
+print(f"mean first-step prompt, in tokens: {first:.0f}")
 print(f"step-capped share of steps: {share('steps'):.1f}%")
 print(f"step-capped share of prompt tokens: {share('prompt_tokens'):.1f}%")
-print(f"shortest run, task: {shortest['task']}")
-print(f"shortest run, steps: {shortest['steps']}")
-print(f"shortest run, prompt tokens per step: {shortest['prompt_tokens'] // shortest['steps']}")
-print(f"longest run, task: {longest['task']}")
-print(f"longest run, steps: {longest['steps']}")
-print(f"longest run, prompt tokens per step: {longest['prompt_tokens'] // longest['steps']}")
+print(f"prompt tokens per step, step-capped runs: {per_step(capped)}")
+print(f"prompt tokens per step, other runs: {per_step(others)}")
+save(fig, "tokens-against-steps")

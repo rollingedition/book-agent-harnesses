@@ -38,13 +38,14 @@ print("steps of the done runs with both rules:", sum(steps_ruled[i] for i in don
 fig, (ax, strip) = new_figure(rows=2, height=3.9)
 # A thin line joins each task's two counts: a drop is a shortened run, a single point an unchanged one.
 ax.vlines(x, steps_ruled, steps_plain, color=MUTED, linewidth=0.8)
-ax.plot(x, steps_plain, "o", mfc="none", color=MUTED, label="as recorded")
-ax.plot(x, steps_ruled, "s", ms=4, color=ACCENT, label="with both rules")
+ax.plot(x, steps_plain, linestyle="none", marker="o", markersize=5, markerfacecolor="none", color=MUTED,
+        label="as recorded")
+ax.plot(x, steps_ruled, linestyle="none", marker="s", markersize=4, color=ACCENT, label="with both rules")
 ax.axhline(V1.step_cap, color=INK, linestyle="--", linewidth=1.0, label=f"step cap, {V1.step_cap} steps")
 ax.set(ylabel="steps in the run", ylim=(0, V1.step_cap + 6))   # headroom above the cap line holds the legend
 ax.legend(frameon=False, loc="upper center", ncol=3)
 # The done runs sit on their own row, so which runs passed reads without the colour or the line.
-strip.plot([x[i] for i in done], [0] * len(done), "^", ms=6, color=INK)
+strip.plot([x[i] for i in done], [0] * len(done), linestyle="none", marker="^", markersize=6, color=INK)
 strip.set(yticks=[0], yticklabels=["done"], ylim=(-1, 1), xticks=x, xticklabels=tasks, xlabel="task, in file order")
 strip.tick_params(axis="x", labelrotation=90, labelsize=7)
 save(fig, "steps-with-and-without-rules")
