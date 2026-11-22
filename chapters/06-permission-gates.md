@@ -94,7 +94,7 @@ IDs count up within one gate, so two gates both issue `p-1`. That is an open lim
 
 Some changes are not for a person to decide. The case's rules forbid the agent from renaming a public name, and from changing a test, and a yes cannot lift a rule of that kind. Putting the question to a person would move the decision to the wrong place, so the gate refuses these changes before any question is asked.
 
-`assess` computes its reasons from the diff against the library, not from the summary. It refuses five kinds of change. A change under `.github/` is refused. A deleted file under `tests/` is refused. An edit to an existing file under `tests/` is refused. A new file under `tests/` that is not a `test_*.py` module is refused. A removed name is refused: a top-level public name in a `unitcraft/` module that the library defines and the copy no longer does, and a top-level `test_` function that the library has and the copy lacks. A new `test_*.py` module is allowed. The two trees are compared name by name, so a rename shows up as a removed name. The model's words cannot change the result, because the reasons are computed from the files.
+`assess` computes its reasons from the diff against the library, not from the summary, and a change that has a reason is held as never: the gate refuses it before any question is asked. It refuses five kinds of change. A change under `.github/` is refused. A deleted file under `tests/` is refused. An edit to an existing file under `tests/` is refused. A new file under `tests/` that is not a `test_*.py` module is refused. A removed name is refused: a top-level public name in a `unitcraft/` module that the library defines and the copy no longer does, and a top-level `test_` function that the library has and the copy lacks. A new `test_*.py` module is allowed. The two trees are compared name by name, so a rename shows up as a removed name. The model's words cannot change the result, because the reasons are computed from the files.
 
 [Example: never-class-refused](../examples/never-class-refused.py)
 
@@ -132,7 +132,7 @@ The script writes a test module into the copy. When the test run imports it, the
 
 A tool's call is checked in a second way, by name.
 
-The table in `lib/permissions.py` is the only source of a tool's class, and a tool outside it is classed `never`. The gate refuses that call before the tool's own code runs, and the refusal goes back to the model as text. The tool's description does not matter here: a description that says a tool only reads is a claim, and the table decides.
+The class tables the harness owns, the one in `lib/permissions.py` and any table the harness passes to the gate, are the only source of a tool's class, and a tool outside them is classed `never`. The gate refuses that call before the tool's own code runs, and the refusal goes back to the model as text. The tool's description does not matter here: a description that says a tool only reads is a claim, and the table decides.
 
 [Example: unknown-tool-refused](../examples/unknown-tool-refused.py)
 

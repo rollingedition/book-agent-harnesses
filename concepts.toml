@@ -464,12 +464,23 @@ part-of = ["proposal"]
 id = "never-class"
 term = "never class"
 context = "ai-agents"
-definition = "The table in `lib/permissions.py` is the only source of a tool's class, and a tool outside it is classed `never`."
+definition = "The class tables the harness owns, the one in `lib/permissions.py` and any table the harness passes to the gate, are the only source of a tool's class, and a tool outside them is classed `never`."
 section = "wrapper"
 example = "unknown-tool-refused"
 
 [concepts.relations]
 broader = ["tool-class"]
+
+[[concepts]]
+id = "held-as-never"
+term = "held as never"
+context = "ai-agents"
+definition = "a change that has a reason is held as never: the gate refuses it before any question is asked"
+section = "never-class"
+example = "never-class-refused"
+
+[concepts.relations]
+contrasts-with = ["never-class"]
 
 [[concepts]]
 id = "allow-list"
@@ -588,7 +599,7 @@ example = "namespace-clash"
 id = "tool-class"
 term = "tool class"
 context = "ai-agents"
-definition = "Chapter 6 divided the harness's tools into classes: a read runs, and a change waits."
+definition = "Chapter 6 divided the harness's tools into classes: a read runs, a change runs in the copy, a proposal waits for a yes, and a tool with no class never runs."
 section = "other-tools"
 example = "annotation-is-a-hint"
 
